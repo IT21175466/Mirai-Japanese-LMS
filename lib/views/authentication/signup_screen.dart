@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:miraijapanese/constraints/app_colors.dart';
 import 'package:miraijapanese/widgets/button_widget.dart';
 import 'package:miraijapanese/widgets/phone_textfield_widget.dart';
@@ -22,6 +23,63 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
+
+    void showSuccessAlertDialog() {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            contentPadding: EdgeInsets.zero,
+            content: Container(
+              height: 300,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30),
+                color: Colors.white,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 10,
+                  ),
+                  SizedBox(
+                    width: screenWidth / 2,
+                    child: Lottie.asset('assets/animations/sucessAnim.json'),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    'Successful!',
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w600,
+                      fontSize: 23,
+                      color: AppColors.accentColor,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    'You successfully registered with\nMirai Japanese N5',
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w400,
+                      fontSize: 10,
+                      color: AppColors.textGrayColor,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ],
+              ),
+            ),
+            actions: <Widget>[],
+          );
+        },
+      );
+    }
+
     return Scaffold(
       body: Container(
         height: screenHeight,
@@ -136,10 +194,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ),
                     Spacer(),
-                    CustomButton(
-                      text: "Continue",
-                      height: 50,
-                      width: screenWidth,
+                    GestureDetector(
+                      onTap: () {
+                        showSuccessAlertDialog();
+                      },
+                      child: CustomButton(
+                        text: "Continue",
+                        height: 50,
+                        width: screenWidth,
+                      ),
                     ),
                     Spacer(),
                   ],

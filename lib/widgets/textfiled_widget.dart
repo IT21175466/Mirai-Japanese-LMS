@@ -30,6 +30,12 @@ class CustomTextField extends StatelessWidget {
             ),
           ),
           labelText: labelText,
+          labelStyle: TextStyle(
+            fontFamily: 'Poppins',
+            fontWeight: FontWeight.w400,
+            fontSize: 14,
+            color: AppColors.textGrayColor,
+          ),
           contentPadding:
               const EdgeInsets.symmetric(vertical: 12, horizontal: 10),
         ),

@@ -4,8 +4,11 @@ class AppColors {
   //TextGray
   static const Color textGrayColor = Color.fromARGB(255, 143, 143, 143);
 
-  // Button colors
+  // Accent colors
   static const Color accentColor = Color.fromARGB(225, 44, 75, 157);
+
+  // Low Accent colors
+  static const Color lowAccentColor = Color.fromARGB(225, 232, 241, 255);
 
   //TextBlackColor
   static const Color textBlackColor = Color.fromARGB(255, 30, 28, 29);

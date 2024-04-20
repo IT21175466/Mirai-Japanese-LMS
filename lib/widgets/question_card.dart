@@ -25,7 +25,7 @@ class QuestionCard extends StatelessWidget {
         Container(
           height: 70,
           width: screenWidth,
-          margin: EdgeInsets.symmetric(vertical: 5),
+          margin: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
           padding: EdgeInsets.symmetric(horizontal: 10),
           decoration: BoxDecoration(
             border: Border.all(
@@ -108,7 +108,7 @@ class QuestionCard extends StatelessWidget {
             ? Container(
                 height: 70,
                 width: screenWidth,
-                margin: EdgeInsets.symmetric(vertical: 5),
+                margin: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
                 padding: EdgeInsets.symmetric(horizontal: 15),
                 decoration: BoxDecoration(
                   color: const Color.fromARGB(255, 12, 7, 7).withOpacity(0.3),

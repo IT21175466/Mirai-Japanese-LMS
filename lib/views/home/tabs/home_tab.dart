@@ -54,7 +54,7 @@ class _HomeTabState extends State<HomeTab> {
       body: Container(
         height: screenHeight,
         width: screenWidth,
-        padding: EdgeInsets.symmetric(horizontal: 15),
+        //padding: EdgeInsets.symmetric(horizontal: 15),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,13 +62,16 @@ class _HomeTabState extends State<HomeTab> {
               SizedBox(
                 height: 15,
               ),
-              Text(
-                'Your Progress',
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w500,
-                  fontSize: 18,
-                  color: AppColors.textBlackColor,
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15),
+                child: Text(
+                  'Your Progress',
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w500,
+                    fontSize: 18,
+                    color: AppColors.textBlackColor,
+                  ),
                 ),
               ),
               SizedBox(
@@ -77,6 +80,7 @@ class _HomeTabState extends State<HomeTab> {
               Container(
                 height: 75,
                 width: screenWidth,
+                margin: EdgeInsets.symmetric(horizontal: 15),
                 padding: EdgeInsets.symmetric(horizontal: 10),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
@@ -160,6 +164,7 @@ class _HomeTabState extends State<HomeTab> {
               ),
               Container(
                 width: screenWidth,
+                margin: EdgeInsets.symmetric(horizontal: 15),
                 padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
@@ -253,6 +258,7 @@ class _HomeTabState extends State<HomeTab> {
               ),
               Container(
                 width: screenWidth,
+                margin: EdgeInsets.symmetric(horizontal: 15),
                 padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
@@ -344,28 +350,31 @@ class _HomeTabState extends State<HomeTab> {
               SizedBox(
                 height: 20,
               ),
-              Row(
-                children: [
-                  Text(
-                    'To Dos',
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 18,
-                      color: AppColors.textBlackColor,
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15),
+                child: Row(
+                  children: [
+                    Text(
+                      'To Dos',
+                      style: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w500,
+                        fontSize: 18,
+                        color: AppColors.textBlackColor,
+                      ),
                     ),
-                  ),
-                  Spacer(),
-                  Text(
-                    'See All',
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w400,
-                      fontSize: 13,
-                      color: AppColors.accentColor,
+                    Spacer(),
+                    Text(
+                      'See All',
+                      style: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w400,
+                        fontSize: 13,
+                        color: AppColors.accentColor,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               QuestionCard(
                 quizAmount: '25',

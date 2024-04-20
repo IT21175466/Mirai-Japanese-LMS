@@ -38,7 +38,6 @@ class _PastPapersTabState extends State<PastPapersTab> {
       body: Container(
         height: screenHeight - AppBar().preferredSize.height,
         width: screenWidth,
-        padding: EdgeInsets.symmetric(horizontal: 15),
         child: SingleChildScrollView(
           child: Column(
             children: [

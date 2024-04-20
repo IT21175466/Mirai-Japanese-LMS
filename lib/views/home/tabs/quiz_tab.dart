@@ -52,7 +52,6 @@ class _QuizTabState extends State<QuizTab> {
       body: Container(
         height: screenHeight - 130,
         width: screenWidth,
-        padding: EdgeInsets.symmetric(horizontal: 15),
         child: SingleChildScrollView(
           child: Column(
             children: [

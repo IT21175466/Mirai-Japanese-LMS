@@ -18,6 +18,7 @@ class _HomeTabState extends State<HomeTab> {
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Row(
           children: [
             Column(
@@ -202,7 +203,7 @@ class _HomeTabState extends State<HomeTab> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Quiz Score',
+                              'Lessons Score',
                               style: TextStyle(
                                 fontFamily: 'Poppins',
                                 fontWeight: FontWeight.w500,
@@ -211,7 +212,7 @@ class _HomeTabState extends State<HomeTab> {
                               ),
                             ),
                             Text(
-                              'Goal 100%',
+                              'Goal 80%',
                               style: TextStyle(
                                 fontFamily: 'Poppins',
                                 fontWeight: FontWeight.w600,
@@ -241,7 +242,7 @@ class _HomeTabState extends State<HomeTab> {
                     Align(
                       alignment: Alignment.bottomRight,
                       child: Text(
-                        '12 out of 25',
+                        '12 out of 28',
                         style: TextStyle(
                           fontFamily: 'Poppins',
                           fontWeight: FontWeight.w600,
@@ -305,7 +306,7 @@ class _HomeTabState extends State<HomeTab> {
                               ),
                             ),
                             Text(
-                              'Goal 100%',
+                              'Goal 60%',
                               style: TextStyle(
                                 fontFamily: 'Poppins',
                                 fontWeight: FontWeight.w600,
@@ -335,7 +336,7 @@ class _HomeTabState extends State<HomeTab> {
                     Align(
                       alignment: Alignment.bottomRight,
                       child: Text(
-                        '1 out of 5',
+                        '1 out of 7',
                         style: TextStyle(
                           fontFamily: 'Poppins',
                           fontWeight: FontWeight.w600,

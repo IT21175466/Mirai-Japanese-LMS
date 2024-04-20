@@ -16,6 +16,7 @@ class _PastPapersTabState extends State<PastPapersTab> {
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Row(
           children: [
             Text(

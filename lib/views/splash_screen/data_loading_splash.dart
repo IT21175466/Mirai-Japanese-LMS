@@ -25,6 +25,9 @@ class _DataLoadingSplashState extends State<DataLoadingSplash> {
               width: screenWidth / 2,
               child: Lottie.asset('assets/animations/loading.json'),
             ),
+            SizedBox(
+              height: 20,
+            ),
             Text(
               'Loading your data......',
               style: TextStyle(

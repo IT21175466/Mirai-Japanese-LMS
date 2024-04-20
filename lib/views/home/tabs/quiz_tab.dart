@@ -18,6 +18,7 @@ class _QuizTabState extends State<QuizTab> {
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         toolbarHeight: 130,
         title: Column(
           children: [

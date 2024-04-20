@@ -23,7 +23,7 @@ class _DataLoadingSplashState extends State<DataLoadingSplash> {
             Spacer(),
             SizedBox(
               width: screenWidth / 2,
-              child: Lottie.asset('assets/animations/loadingAnim.json'),
+              child: Lottie.asset('assets/animations/loading.json'),
             ),
             Text(
               'Loading your data......',

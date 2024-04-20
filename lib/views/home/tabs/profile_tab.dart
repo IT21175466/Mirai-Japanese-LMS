@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:miraijapanese/constraints/app_colors.dart';
+import 'package:miraijapanese/widgets/user_info_card.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class ProfileTab extends StatefulWidget {
@@ -322,83 +323,20 @@ class _ProfileTabState extends State<ProfileTab> {
                     SizedBox(
                       height: 5,
                     ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15),
-                      child: Text(
-                        'Phone Number',
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 12,
-                          color: AppColors.textGrayColor,
-                        ),
-                      ),
+                    UserInfoCard(
+                      phone: '0713758116',
+                      info: 'Phone Number',
+                      image: Image.asset('assets/icons/phoneNumber.png'),
                     ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15),
-                      child: Text(
-                        '0713758116',
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14,
-                          color: AppColors.textBlackColor,
-                        ),
-                      ),
+                    UserInfoCard(
+                      phone: 'chamath@gmail.com',
+                      info: 'Email',
+                      image: Image.asset('assets/icons/email.png'),
                     ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15),
-                      child: Text(
-                        'Email',
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 12,
-                          color: AppColors.textGrayColor,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15),
-                      child: Text(
-                        'chamath@gmail.com',
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14,
-                          color: AppColors.textBlackColor,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15),
-                      child: Text(
-                        'Registerd in',
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 12,
-                          color: AppColors.textGrayColor,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15),
-                      child: Text(
-                        '2024 Juny 23',
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14,
-                          color: AppColors.textBlackColor,
-                        ),
-                      ),
+                    UserInfoCard(
+                      phone: '2024 june 12',
+                      info: 'Registerd in',
+                      image: Image.asset('assets/icons/registerdIn.png'),
                     ),
                   ],
                 ),

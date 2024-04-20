@@ -155,7 +155,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     CustomTextField(
                       controller: emailController,
-                      labelText: 'Email',
+                      labelText: 'Email (Optional)',
                     ),
                     Container(
                       margin: const EdgeInsets.symmetric(vertical: 7),

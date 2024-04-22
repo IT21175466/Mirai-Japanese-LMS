@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:miraijapanese/constraints/app_colors.dart';
+import 'package:miraijapanese/views/authentication/login_screen.dart';
 
 class InitialSplash extends StatefulWidget {
   const InitialSplash({super.key});
@@ -9,6 +12,20 @@ class InitialSplash extends StatefulWidget {
 }
 
 class _InitialSplashState extends State<InitialSplash> {
+  @override
+  void initState() {
+    super.initState();
+    Timer(
+      Duration(seconds: 3),
+      () => Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => LoginScreen(),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;

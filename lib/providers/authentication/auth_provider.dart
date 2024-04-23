@@ -8,6 +8,7 @@ import 'package:miraijapanese/models/student.dart';
 import 'package:miraijapanese/views/authentication/otp_screen.dart';
 import 'package:miraijapanese/views/authentication/signup_screen.dart';
 import 'package:miraijapanese/views/home/home_screen.dart';
+import 'package:miraijapanese/views/splash_screen/data_loading_splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -176,7 +177,9 @@ class AuthProvider extends ChangeNotifier {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => HomeScreen(),
+            builder: (context) => DataLoadingSplash(
+              sID: userID,
+            ),
           ),
         );
         loading = false;

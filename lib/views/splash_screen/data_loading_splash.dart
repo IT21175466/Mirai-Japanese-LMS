@@ -1,15 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:miraijapanese/constraints/app_colors.dart';
+import 'package:miraijapanese/providers/app_data/app_data_provider.dart';
+import 'package:provider/provider.dart';
 
 class DataLoadingSplash extends StatefulWidget {
-  const DataLoadingSplash({super.key});
+  final String sID;
+  const DataLoadingSplash({super.key, required this.sID});
 
   @override
   State<DataLoadingSplash> createState() => _DataLoadingSplashState();
 }
 
 class _DataLoadingSplashState extends State<DataLoadingSplash> {
+  @override
+  void initState() {
+    super.initState();
+    final appDataProvider =
+        Provider.of<AppDataProvider>(context, listen: false);
+    appDataProvider.getStudentData(context, widget.sID);
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -42,7 +53,7 @@ class _DataLoadingSplashState extends State<DataLoadingSplash> {
             ),
             Spacer(),
             SizedBox(
-              height: 60,
+              height: 50,
               child: Image.asset('assets/images/logo.png'),
             ),
             SizedBox(

@@ -5,14 +5,14 @@ import 'package:miraijapanese/constraints/app_colors.dart';
 import 'package:miraijapanese/views/splash_screen/data_loading_splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class InitialSplash extends StatefulWidget {
-  const InitialSplash({super.key});
+class HomeSplash extends StatefulWidget {
+  const HomeSplash({super.key});
 
   @override
-  State<InitialSplash> createState() => _InitialSplashState();
+  State<HomeSplash> createState() => _HomeSplashState();
 }
 
-class _InitialSplashState extends State<InitialSplash> {
+class _HomeSplashState extends State<HomeSplash> {
   String? studentID = '';
 
   @override

@@ -30,7 +30,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
                 icon: Icon(
                   Icons.quiz,
                 ),
-                label: "Quizes",
+                label: "Lessons",
               ),
               BottomNavigationBarItem(
                 icon: Icon(

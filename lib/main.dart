@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:miraijapanese/firebase_options.dart';
+import 'package:miraijapanese/providers/app_data/app_data_provider.dart';
 import 'package:miraijapanese/providers/authentication/auth_provider.dart';
 import 'package:miraijapanese/providers/bottom_nav/bottom_nav_provider.dart';
 import 'package:miraijapanese/routes/app_routes.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (context) => BottomNavBarProvider()),
         ChangeNotifierProvider(create: (context) => AuthProvider()),
+        ChangeNotifierProvider(create: (context) => AppDataProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -37,7 +39,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        initialRoute: loginStatus ? '/home' : '/initsplash',
+        initialRoute: loginStatus ? '/homesplash' : '/login',
         routes: AppRoutes.getRoutes(),
       ),
     );

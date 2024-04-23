@@ -119,12 +119,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         } else if (authProvider.phoneController.text
                                 .trim()
                                 .toString() ==
-                            '713758116') {
+                            '0713758116') {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => OTPScreen(
-                                mobileNumber: '+94713758116',
+                                mobileNumber: '0713758116',
                                 verificationID: 123456,
                               ),
                             ),

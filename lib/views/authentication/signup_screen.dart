@@ -296,6 +296,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               phoneNum: widget.mobile,
                               date: DateTime.now().toString(),
                               dateOfBirth: dateOfBirthController.text,
+                              lessonMarks: [],
+                              pastPaperMarks: [],
+                              completedLessons: 0,
+                              completedPastPapers: 0,
                             );
 
                             authProvider.addStudentToFirebase(

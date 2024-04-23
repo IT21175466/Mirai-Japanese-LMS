@@ -339,7 +339,7 @@ class _ProfileTabState extends State<ProfileTab> {
                         info: 'Phone Number',
                         image: Image.asset('assets/icons/phoneNumber.png'),
                       ),
-                      appDataProvider.email.toString() == '...'
+                      appDataProvider.email.toString().isEmpty
                           ? SizedBox()
                           : UserInfoCard(
                               phone: '${appDataProvider.email}',

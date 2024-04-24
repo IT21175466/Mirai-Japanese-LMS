@@ -47,6 +47,13 @@ class _SingleQuestionScreenState extends State<SingleQuestionScreen> {
   Duration duration = Duration.zero;
   Duration position = Duration.zero;
 
+  bool isAnswerSelected = false;
+  bool isSelected1 = false;
+  bool isSelected2 = false;
+  bool isSelected3 = false;
+
+  String selectedAnswer = '';
+
   @override
   void initState() {
     super.initState();
@@ -212,41 +219,68 @@ class _SingleQuestionScreenState extends State<SingleQuestionScreen> {
           ),
         ),
         Divider(),
-        AnswerTile(
-          answer: widget.answer1,
-          color: Colors.red,
-          textColor: Colors.white,
-          borderColor: Colors.red,
-          customIcon: Icon(
-            Icons.close,
-            color: Colors.white,
+        GestureDetector(
+          onTap: () {
+            setState(() {
+              isAnswerSelected = true;
+              isSelected1 = true;
+              selectedAnswer = widget.answer1;
+            });
+          },
+          child: AnswerTile(
+            answer: widget.answer1,
+            color: Colors.red,
+            textColor: Colors.white,
+            borderColor: Colors.red,
+            customIcon: Icon(
+              Icons.close,
+              color: Colors.white,
+            ),
+            answerVoice: widget.answer1Voice,
+            answerImage: widget.answer1Image,
           ),
-          answerVoice: widget.answer1Voice,
-          answerImage: widget.answer1Image,
         ),
-        AnswerTile(
-          answer: widget.answer2,
-          color: Colors.white,
-          textColor: AppColors.textBlackColor,
-          borderColor: AppColors.borderColor,
-          customIcon: Icon(
-            Icons.close,
+        GestureDetector(
+          onTap: () {
+            setState(() {
+              isAnswerSelected = true;
+              isSelected2 = true;
+              selectedAnswer = widget.answer2;
+            });
+          },
+          child: AnswerTile(
+            answer: widget.answer2,
             color: Colors.white,
+            textColor: AppColors.textBlackColor,
+            borderColor: AppColors.borderColor,
+            customIcon: Icon(
+              Icons.close,
+              color: Colors.white,
+            ),
+            answerVoice: widget.answer2Voice,
+            answerImage: widget.answer2Image,
           ),
-          answerVoice: widget.answer2Voice,
-          answerImage: widget.answer2Image,
         ),
-        AnswerTile(
-          answer: widget.answer3,
-          color: Colors.green,
-          textColor: Colors.white,
-          borderColor: Colors.green,
-          customIcon: Icon(
-            Icons.done,
-            color: Colors.white,
+        GestureDetector(
+          onTap: () {
+            setState(() {
+              isAnswerSelected = true;
+              isSelected3 = true;
+              selectedAnswer = widget.answer3;
+            });
+          },
+          child: AnswerTile(
+            answer: widget.answer3,
+            color: Colors.green,
+            textColor: Colors.white,
+            borderColor: Colors.green,
+            customIcon: Icon(
+              Icons.done,
+              color: Colors.white,
+            ),
+            answerVoice: widget.answer3Voice,
+            answerImage: widget.answer3Image,
           ),
-          answerVoice: widget.answer3Voice,
-          answerImage: widget.answer3Image,
         ),
       ],
     );

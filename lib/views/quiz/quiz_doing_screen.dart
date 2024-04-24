@@ -31,76 +31,79 @@ class _QuizDoingScreenState extends State<QuizDoingScreen> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-    return Scaffold(
-      body: Consumer(
-        builder: (BuildContext context, QuestionProvider questionProvider,
-                Widget? child) =>
-            Container(
-          height: screenHeight,
-          width: screenWidth,
-          padding: EdgeInsets.symmetric(horizontal: 15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                height: screenHeight / 10 * 2,
-                width: screenWidth,
-                child: Column(
+    return Consumer(
+      builder: (BuildContext context, QuestionProvider questionProvider,
+              Widget? child) =>
+          Scaffold(
+        appBar: AppBar(
+          toolbarHeight: AppBar().preferredSize.height + 30,
+          automaticallyImplyLeading: false,
+          title: SizedBox(
+            width: screenWidth,
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
                   children: [
+                    Text(
+                      'Language Quiz I',
+                      style: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w600,
+                        fontSize: 20,
+                        color: AppColors.accentColor,
+                      ),
+                    ),
+                    Spacer(),
                     SizedBox(
-                      height: AppBar().preferredSize.height,
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          'Language Quiz I',
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w600,
-                            fontSize: 20,
-                            color: AppColors.accentColor,
-                          ),
-                        ),
-                        Spacer(),
-                        SizedBox(
-                          height: 20,
-                          child: Image.asset('assets/icons/exit.png'),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          'Question ${index + 1}',
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w600,
-                            fontSize: 16,
-                            color: AppColors.textGrayColor,
-                          ),
-                        ),
-                        Text(
-                          '/${questionProvider.questions.length}',
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w600,
-                            fontSize: 11,
-                            color: AppColors.textGrayColor,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Divider(
-                      color: AppColors.textGrayColor,
+                      height: 20,
+                      child: Image.asset('assets/icons/exit.png'),
                     ),
                   ],
                 ),
-              ),
-              Expanded(
-                child: SingleQuestionScreen(
+                SizedBox(
+                  height: 5,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      'Question ${index + 1}',
+                      style: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                        color: AppColors.textGrayColor,
+                      ),
+                    ),
+                    Text(
+                      '/${questionProvider.questions.length}',
+                      style: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w600,
+                        fontSize: 11,
+                        color: AppColors.textGrayColor,
+                      ),
+                    ),
+                  ],
+                ),
+                Divider(
+                  color: AppColors.textGrayColor,
+                ),
+              ],
+            ),
+          ),
+        ),
+        body: Container(
+          height: screenHeight,
+          width: screenWidth,
+          padding: EdgeInsets.symmetric(horizontal: 15),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SingleQuestionScreen(
                   questionNumber:
                       questionProvider.questions[index].questionNumber,
                   question: questionProvider.questions[index].question,
@@ -120,44 +123,39 @@ class _QuizDoingScreenState extends State<QuizDoingScreen> {
                   answer2Voice: questionProvider.questions[index].answer2Voice,
                   answer3Voice: questionProvider.questions[index].answer3Voice,
                 ),
-              ),
-              Container(
-                height: screenHeight / 10 * 1,
-                child: Column(
-                  children: [
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: questionProvider.questions.length == index + 1
-                          ? GestureDetector(
-                              onTap: () {
-                                // setState(() {
-                                //   index = index + 1;
-                                // });
-                              },
-                              child: CustomButton(
-                                text: 'Finish',
-                                height: 50,
-                                width: screenWidth / 2,
-                              ),
-                            )
-                          : GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  index = index + 1;
-                                });
-                              },
-                              child: CustomButton(
-                                text: 'Next',
-                                height: 50,
-                                width: screenWidth / 2,
-                              ),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 15),
+                  child: Align(
+                    alignment: Alignment.bottomRight,
+                    child: questionProvider.questions.length == index + 1
+                        ? GestureDetector(
+                            onTap: () {
+                              // setState(() {
+                              //   index = index + 1;
+                              // });
+                            },
+                            child: CustomButton(
+                              text: 'Finish',
+                              height: 50,
+                              width: screenWidth / 2,
                             ),
-                    ),
-                    Spacer(),
-                  ],
+                          )
+                        : GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                index = index + 1;
+                              });
+                            },
+                            child: CustomButton(
+                              text: 'Next',
+                              height: 50,
+                              width: screenWidth / 2,
+                            ),
+                          ),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

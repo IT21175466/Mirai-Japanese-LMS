@@ -91,153 +91,164 @@ class _SingleQuestionScreenState extends State<SingleQuestionScreen> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-    return Container(
-      height: screenHeight / 10 * 6,
-      width: screenWidth,
-      child: Column(
-        children: [
-          Text(
-            widget.question,
-            style: TextStyle(
-              fontFamily: 'Poppins',
-              fontWeight: FontWeight.w500,
-              fontSize: 18,
-              color: AppColors.textBlackColor,
-            ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          widget.question,
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            fontWeight: FontWeight.w500,
+            fontSize: 18,
+            color: AppColors.textBlackColor,
           ),
-          SizedBox(
-            height: 15,
-          ),
-          widget.questionImage.isEmpty
-              ? SizedBox()
-              : Container(
-                  width: screenWidth,
-                  height: 180,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: AppColors.lowAccentColor,
-                    border: Border.all(
-                      color: AppColors.textGrayColor,
-                      width: 0.5,
-                    ),
-                    image: DecorationImage(
-                      image: NetworkImage(widget.questionImage),
-                    ),
+        ),
+        SizedBox(
+          height: 15,
+        ),
+        widget.questionImage.isEmpty
+            ? SizedBox()
+            : Container(
+                width: screenWidth,
+                height: 180,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: AppColors.lowAccentColor,
+                  border: Border.all(
+                    color: AppColors.textGrayColor,
+                    width: 0.5,
+                  ),
+                  image: DecorationImage(
+                    image: NetworkImage(widget.questionImage),
                   ),
                 ),
-          widget.questionVoice.isEmpty
-              ? SizedBox()
-              : Container(
-                  width: screenWidth,
-                  height: 150,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: AppColors.lowAccentColor,
-                    border: Border.all(
-                      color: AppColors.textGrayColor,
-                      width: 0.5,
-                    ),
+              ),
+        widget.questionVoice.isEmpty
+            ? SizedBox()
+            : Container(
+                width: screenWidth,
+                height: 150,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: AppColors.lowAccentColor,
+                  border: Border.all(
+                    color: AppColors.textGrayColor,
+                    width: 0.5,
                   ),
-                  child: Column(
-                    children: [
-                      Spacer(),
-                      Slider(
-                        min: 0,
-                        max: duration.inSeconds.toDouble(),
-                        value: position.inSeconds.toDouble(),
-                        onChanged: (value) async {
-                          final position = Duration(seconds: value.toInt());
-                          await audioPlayer.seek(position);
+                ),
+                child: Column(
+                  children: [
+                    Spacer(),
+                    Slider(
+                      min: 0,
+                      max: duration.inSeconds.toDouble(),
+                      value: position.inSeconds.toDouble(),
+                      onChanged: (value) async {
+                        final position = Duration(seconds: value.toInt());
+                        await audioPlayer.seek(position);
 
-                          await audioPlayer.resume();
-                        },
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 15),
-                        child: Row(
-                          children: [
-                            Text(
-                              formatTime(position),
-                              style: TextStyle(
-                                fontFamily: 'Poppins',
-                                fontWeight: FontWeight.w400,
-                                fontSize: 12,
-                                color: AppColors.textBlackColor,
-                              ),
+                        await audioPlayer.resume();
+                      },
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 15),
+                      child: Row(
+                        children: [
+                          Text(
+                            formatTime(position),
+                            style: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12,
+                              color: AppColors.textBlackColor,
                             ),
-                            Spacer(),
-                            Text(
-                              formatTime(duration - position),
-                              style: TextStyle(
-                                fontFamily: 'Poppins',
-                                fontWeight: FontWeight.w400,
-                                fontSize: 12,
-                                color: AppColors.textBlackColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      CircleAvatar(
-                        radius: 25,
-                        backgroundColor: AppColors.accentColor,
-                        child: IconButton(
-                          onPressed: () async {
-                            if (isPlaying) {
-                              await audioPlayer.pause();
-                            } else {
-                              await audioPlayer.play(UrlSource(
-                                widget.questionVoice,
-                              ));
-                            }
-                          },
-                          icon: Icon(
-                            isPlaying ? Icons.pause : Icons.play_arrow,
-                            color: Colors.white,
                           ),
+                          Spacer(),
+                          Text(
+                            formatTime(duration - position),
+                            style: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12,
+                              color: AppColors.textBlackColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    CircleAvatar(
+                      radius: 25,
+                      backgroundColor: AppColors.accentColor,
+                      child: IconButton(
+                        onPressed: () async {
+                          if (isPlaying) {
+                            await audioPlayer.pause();
+                          } else {
+                            await audioPlayer.play(UrlSource(
+                              widget.questionVoice,
+                            ));
+                          }
+                        },
+                        icon: Icon(
+                          isPlaying ? Icons.pause : Icons.play_arrow,
+                          color: Colors.white,
                         ),
                       ),
-                      Spacer(),
-                    ],
-                  ),
+                    ),
+                    Spacer(),
+                  ],
                 ),
-          SizedBox(
-            height: 25,
+              ),
+        SizedBox(
+          height: 25,
+        ),
+        Text(
+          'Answers',
+          style: TextStyle(
+            fontFamily: 'Poppins',
+            fontWeight: FontWeight.w400,
+            fontSize: 16,
+            color: AppColors.textGrayColor,
           ),
-          AnswerTile(
-            answer: widget.answer1,
-            color: Colors.red,
-            textColor: Colors.white,
-            borderColor: Colors.red,
-            customIcon: Icon(
-              Icons.close,
-              color: Colors.white,
-            ),
-          ),
-          AnswerTile(
-            answer: widget.answer2,
+        ),
+        Divider(),
+        AnswerTile(
+          answer: widget.answer1,
+          color: Colors.red,
+          textColor: Colors.white,
+          borderColor: Colors.red,
+          customIcon: Icon(
+            Icons.close,
             color: Colors.white,
-            textColor: AppColors.textBlackColor,
-            borderColor: AppColors.borderColor,
-            customIcon: Icon(
-              Icons.close,
-              color: Colors.white,
-            ),
           ),
-          AnswerTile(
-            answer: widget.answer3,
-            color: Colors.green,
-            textColor: Colors.white,
-            borderColor: Colors.green,
-            customIcon: Icon(
-              Icons.done,
-              color: Colors.white,
-            ),
+          answerVoice: widget.answer1Voice,
+          answerImage: widget.answer1Image,
+        ),
+        AnswerTile(
+          answer: widget.answer2,
+          color: Colors.white,
+          textColor: AppColors.textBlackColor,
+          borderColor: AppColors.borderColor,
+          customIcon: Icon(
+            Icons.close,
+            color: Colors.white,
           ),
-          Spacer(),
-        ],
-      ),
+          answerVoice: widget.answer2Voice,
+          answerImage: widget.answer2Image,
+        ),
+        AnswerTile(
+          answer: widget.answer3,
+          color: Colors.green,
+          textColor: Colors.white,
+          borderColor: Colors.green,
+          customIcon: Icon(
+            Icons.done,
+            color: Colors.white,
+          ),
+          answerVoice: widget.answer3Voice,
+          answerImage: widget.answer3Image,
+        ),
+      ],
     );
   }
 }

@@ -4,7 +4,7 @@ import 'package:miraijapanese/constraints/app_colors.dart';
 class QuestionCard extends StatelessWidget {
   final String quizTitle;
   final String quizAmount;
-  final AssetImage image;
+  final NetworkImage image;
   final bool isLocked;
   final bool isCompleted;
   final double score;
@@ -43,6 +43,7 @@ class QuestionCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                   image: DecorationImage(
                     image: image,
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
@@ -65,7 +66,7 @@ class QuestionCard extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        '${quizAmount} Questions',
+                        'Lesson ${quizAmount}',
                         style: TextStyle(
                           fontFamily: 'Poppins',
                           fontWeight: FontWeight.w500,

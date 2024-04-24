@@ -1,7 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:miraijapanese/constraints/app_colors.dart';
+import 'package:miraijapanese/providers/app_data/app_data_provider.dart';
+import 'package:miraijapanese/views/quiz/quiz_doing_screen.dart';
 import 'package:miraijapanese/widgets/question_card.dart';
 import 'package:miraijapanese/widgets/search_textfeild.dart';
+import 'package:provider/provider.dart';
 
 class QuizTab extends StatefulWidget {
   const QuizTab({super.key});
@@ -25,7 +29,7 @@ class _QuizTabState extends State<QuizTab> {
             Row(
               children: [
                 Text(
-                  'Quizzes',
+                  'Lessons',
                   style: TextStyle(
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w600,
@@ -50,96 +54,66 @@ class _QuizTabState extends State<QuizTab> {
           ],
         ),
       ),
-      body: Container(
-        height: screenHeight - 130,
-        width: screenWidth,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              QuestionCard(
-                quizAmount: '25',
-                image: AssetImage('assets/images/sporken.jpg'),
-                quizTitle: 'Spoken Quiz',
-                isLocked: false,
-                isCompleted: true,
-                score: 82.0,
-              ),
-              QuestionCard(
-                quizAmount: '25',
-                image: AssetImage('assets/images/sporken.jpg'),
-                quizTitle: 'Spoken Quiz II',
-                isLocked: false,
-                isCompleted: false,
-                score: 0,
-              ),
-              QuestionCard(
-                quizAmount: '25',
-                image: AssetImage('assets/images/language.jpg'),
-                quizTitle: 'Language Quiz I',
-                isLocked: true,
-                isCompleted: false,
-                score: 0,
-              ),
-              QuestionCard(
-                quizAmount: '25',
-                image: AssetImage('assets/images/language.jpg'),
-                quizTitle: 'Language Quiz I',
-                isLocked: true,
-                isCompleted: false,
-                score: 0,
-              ),
-              QuestionCard(
-                quizAmount: '25',
-                image: AssetImage('assets/images/language.jpg'),
-                quizTitle: 'Language Quiz I',
-                isLocked: true,
-                isCompleted: false,
-                score: 0,
-              ),
-              QuestionCard(
-                quizAmount: '25',
-                image: AssetImage('assets/images/language.jpg'),
-                quizTitle: 'Language Quiz I',
-                isLocked: true,
-                isCompleted: false,
-                score: 0,
-              ),
-              QuestionCard(
-                quizAmount: '25',
-                image: AssetImage('assets/images/language.jpg'),
-                quizTitle: 'Language Quiz I',
-                isLocked: true,
-                isCompleted: false,
-                score: 0,
-              ),
-              QuestionCard(
-                quizAmount: '25',
-                image: AssetImage('assets/images/language.jpg'),
-                quizTitle: 'Language Quiz I',
-                isLocked: true,
-                isCompleted: false,
-                score: 0,
-              ),
-              QuestionCard(
-                quizAmount: '25',
-                image: AssetImage('assets/images/language.jpg'),
-                quizTitle: 'Language Quiz I',
-                isLocked: true,
-                isCompleted: false,
-                score: 0,
-              ),
-              QuestionCard(
-                quizAmount: '25',
-                image: AssetImage('assets/images/language.jpg'),
-                quizTitle: 'Language Quiz I',
-                isLocked: true,
-                isCompleted: false,
-                score: 0,
-              ),
-              SizedBox(
-                height: 20,
-              ),
-            ],
+      body: Consumer(
+        builder: (BuildContext context, AppDataProvider appDataProvider,
+                Widget? child) =>
+            Container(
+          height: screenHeight - 130,
+          width: screenWidth,
+          child: StreamBuilder(
+            stream:
+                FirebaseFirestore.instance.collection('Lessons').snapshots(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return Text('Error: ${snapshot.error}');
+              } else if (!snapshot.hasData) {
+                return Text('No data available');
+              } else {
+                return ListView.builder(
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (context, index) {
+                      DocumentSnapshot lesson = snapshot.data!.docs[index];
+                      return GestureDetector(
+                        onTap: () {
+                          if (appDataProvider.completedLessions
+                              .contains(lesson['LessonNo'])) {
+                            print('Quiz Did!');
+                          } else {
+                            if (appDataProvider.completedLessions.contains(
+                                    int.parse(lesson['LessonNo'].toString()) -
+                                        1) ||
+                                lesson['LessonNo'] == '1') {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => QuizDoingScreen(),
+                                ),
+                              );
+                            } else {
+                              print('Locked!');
+                            }
+                          }
+                        },
+                        child: QuestionCard(
+                          quizAmount: lesson['LessonNo'],
+                          image: NetworkImage(lesson['Image_Url']),
+                          quizTitle: lesson['LessonTitle'],
+                          isLocked: appDataProvider.completedLessions.contains(
+                                  int.parse(lesson['LessonNo'].toString()) - 1)
+                              ? false
+                              : lesson['LessonNo'] == '1'
+                                  ? false
+                                  : true,
+                          isCompleted: appDataProvider.completedLessions
+                              .contains(lesson['LessonNo']),
+                          score: 82.0,
+                        ),
+                      );
+                    });
+              }
+            },
           ),
         ),
       ),

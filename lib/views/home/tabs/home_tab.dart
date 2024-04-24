@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miraijapanese/constraints/app_colors.dart';
 import 'package:miraijapanese/providers/app_data/app_data_provider.dart';
-import 'package:miraijapanese/widgets/question_card.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:provider/provider.dart';
@@ -238,7 +237,7 @@ class _HomeTabState extends State<HomeTab> {
                         animation: true,
                         animationDuration: 1500,
                         lineHeight: 10.0,
-                        percent: appDataProvider.lessionsCompleteCount / 28,
+                        percent: appDataProvider.completedLessions.length / 28,
                         progressColor: AppColors.borderColor,
                         barRadius: const Radius.circular(16),
                       ),
@@ -248,7 +247,7 @@ class _HomeTabState extends State<HomeTab> {
                       Align(
                         alignment: Alignment.bottomRight,
                         child: Text(
-                          '${appDataProvider.lessionsCompleteCount} out of 28',
+                          '${appDataProvider.completedLessions.length} out of 28',
                           style: TextStyle(
                             fontFamily: 'Poppins',
                             fontWeight: FontWeight.w600,
@@ -342,7 +341,7 @@ class _HomeTabState extends State<HomeTab> {
                       Align(
                         alignment: Alignment.bottomRight,
                         child: Text(
-                          '${appDataProvider.pastPapersCompleteCount} out of ${appDataProvider.pastPapersScore.length}',
+                          '${appDataProvider.completedPastPapers.length} out of 8',
                           style: TextStyle(
                             fontFamily: 'Poppins',
                             fontWeight: FontWeight.w600,
@@ -383,30 +382,15 @@ class _HomeTabState extends State<HomeTab> {
                     ],
                   ),
                 ),
-                QuestionCard(
-                  quizAmount: '25',
-                  image: AssetImage('assets/images/sporken.jpg'),
-                  quizTitle: 'Spoken Quiz',
-                  isLocked: false,
-                  isCompleted: true,
-                  score: 82.0,
-                ),
-                QuestionCard(
-                  quizAmount: '25',
-                  image: AssetImage('assets/images/sporken.jpg'),
-                  quizTitle: 'Spoken Quiz II',
-                  isLocked: false,
-                  isCompleted: false,
-                  score: 0,
-                ),
-                QuestionCard(
-                  quizAmount: '25',
-                  image: AssetImage('assets/images/language.jpg'),
-                  quizTitle: 'Language Quiz I',
-                  isLocked: true,
-                  isCompleted: false,
-                  score: 0,
-                ),
+                // QuestionCard(
+                //   quizAmount: '25',
+                //   image: AssetImage('assets/images/sporken.jpg'),
+                //   quizTitle: 'Spoken Quiz',
+                //   isLocked: false,
+                //   isCompleted: true,
+                //   score: 82.0,
+                // ),
+
                 SizedBox(
                   height: 20,
                 ),

@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:miraijapanese/models/mark.dart';
 
 class AppDataProvider extends ChangeNotifier {
   bool isLoading = false;
@@ -12,10 +11,8 @@ class AppDataProvider extends ChangeNotifier {
   String? phoneNum = '...';
   String? dateOfBirth = '...';
   String? registedDate = '...';
-  int lessionsCompleteCount = 0;
-  int pastPapersCompleteCount = 0;
-  List<Mark> lessionsScore = [];
-  List<Mark> pastPapersScore = [];
+  List<String> completedLessions = [];
+  List<String> completedPastPapers = [];
 
   getStudentData(BuildContext context, String sID) async {
     try {
@@ -30,22 +27,8 @@ class AppDataProvider extends ChangeNotifier {
       phoneNum = studentDoc.get('PhoneNumber');
       dateOfBirth = studentDoc.get('DateOfBirth');
       registedDate = studentDoc.get('Registed_Date');
-      lessionsCompleteCount = studentDoc.get('Completed_Lessons');
-      pastPapersCompleteCount = studentDoc.get('Completed_PastPapers');
-
-      List<dynamic>? lessionsMarksData = studentDoc.get('Lessions_Marks');
-
-      if (lessionsMarksData != null) {
-        lessionsScore =
-            lessionsMarksData.map((mark) => Mark.fromJson(mark)).toList();
-      }
-
-      List<dynamic>? pastpapersMarksData = studentDoc.get('PastPapers_Marks');
-
-      if (pastpapersMarksData != null) {
-        pastPapersScore =
-            pastpapersMarksData.map((mark) => Mark.fromJson(mark)).toList();
-      }
+      completedLessions = studentDoc.get('Completed_Lessons');
+      completedPastPapers = studentDoc.get('Completed_PastPapers');
 
       notifyListeners();
     } catch (e) {

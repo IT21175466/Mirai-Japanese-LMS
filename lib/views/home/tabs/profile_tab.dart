@@ -185,8 +185,10 @@ class _ProfileTabState extends State<ProfileTab> {
                               animation: true,
                               animationDuration: 1500,
                               lineHeight: 10.0,
-                              percent: appDataProvider.lessionsCompleteCount +
-                                  appDataProvider.pastPapersCompleteCount / 1,
+                              percent: appDataProvider
+                                      .completedLessions.length +
+                                  appDataProvider.completedPastPapers.length /
+                                      1,
                               // (appDataProvider.lessionsScore.length +
                               //     appDataProvider
                               //         .pastPapersScore.length), // Remove + 1
@@ -234,7 +236,7 @@ class _ProfileTabState extends State<ProfileTab> {
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     Text(
-                                      appDataProvider.lessionsCompleteCount
+                                      appDataProvider.completedLessions.length
                                           .toString(),
                                       style: TextStyle(
                                         fontFamily: 'Poppins',
@@ -290,7 +292,7 @@ class _ProfileTabState extends State<ProfileTab> {
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     Text(
-                                      appDataProvider.pastPapersCompleteCount
+                                      appDataProvider.completedPastPapers.length
                                           .toString(),
                                       style: TextStyle(
                                         fontFamily: 'Poppins',

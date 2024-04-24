@@ -1,6 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:miraijapanese/constraints/app_colors.dart';
+import 'package:miraijapanese/providers/app_data/app_data_provider.dart';
 import 'package:miraijapanese/widgets/question_card.dart';
+import 'package:miraijapanese/widgets/search_textfeild.dart';
+import 'package:provider/provider.dart';
 
 class PastPapersTab extends StatefulWidget {
   const PastPapersTab({super.key});
@@ -10,6 +14,7 @@ class PastPapersTab extends StatefulWidget {
 }
 
 class _PastPapersTabState extends State<PastPapersTab> {
+  TextEditingController searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -17,78 +22,75 @@ class _PastPapersTabState extends State<PastPapersTab> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Row(
+        toolbarHeight: 130,
+        title: Column(
           children: [
-            Text(
-              'Past Papers',
-              style: TextStyle(
-                fontFamily: 'Poppins',
-                fontWeight: FontWeight.w600,
-                fontSize: 24,
-                color: AppColors.accentColor,
-              ),
+            Row(
+              children: [
+                Text(
+                  'Past Papers',
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w600,
+                    fontSize: 24,
+                    color: AppColors.accentColor,
+                  ),
+                ),
+                Spacer(),
+                SizedBox(
+                  width: 45,
+                  child: Image.asset('assets/images/splashLogo.png'),
+                ),
+              ],
             ),
-            Spacer(),
             SizedBox(
-              width: 45,
-              child: Image.asset('assets/images/splashLogo.png'),
+              height: 10,
+            ),
+            SearchTextField(
+              controller: searchController,
+              labelText: 'Search',
             ),
           ],
         ),
       ),
-      body: Container(
-        height: screenHeight - AppBar().preferredSize.height,
-        width: screenWidth,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(
-                height: 25,
-              ),
-              QuestionCard(
-                quizAmount: '25',
-                image: AssetImage('assets/images/sporken.jpg'),
-                quizTitle: 'Past Paper',
-                isLocked: false,
-                isCompleted: true,
-                score: 82.0,
-              ),
-              QuestionCard(
-                quizAmount: '25',
-                image: AssetImage('assets/images/sporken.jpg'),
-                quizTitle: 'Past Paper',
-                isLocked: false,
-                isCompleted: false,
-                score: 0,
-              ),
-              QuestionCard(
-                quizAmount: '25',
-                image: AssetImage('assets/images/language.jpg'),
-                quizTitle: 'Past Paper',
-                isLocked: true,
-                isCompleted: false,
-                score: 0,
-              ),
-              QuestionCard(
-                quizAmount: '25',
-                image: AssetImage('assets/images/language.jpg'),
-                quizTitle: 'Past Paper',
-                isLocked: true,
-                isCompleted: false,
-                score: 0,
-              ),
-              QuestionCard(
-                quizAmount: '25',
-                image: AssetImage('assets/images/language.jpg'),
-                quizTitle: 'Past Paper',
-                isLocked: true,
-                isCompleted: false,
-                score: 0,
-              ),
-              SizedBox(
-                height: 20,
-              ),
-            ],
+      body: Consumer(
+        builder: (BuildContext context, AppDataProvider appDataProvider,
+                Widget? child) =>
+            Container(
+          height: screenHeight - 130,
+          width: screenWidth,
+          child: StreamBuilder(
+            stream:
+                FirebaseFirestore.instance.collection('PastPapers').snapshots(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(child: CircularProgressIndicator());
+              } else if (snapshot.hasError) {
+                return Text('Error: ${snapshot.error}');
+              } else if (!snapshot.hasData) {
+                return Text('No data available');
+              } else {
+                return ListView.builder(
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (context, index) {
+                      DocumentSnapshot lesson = snapshot.data!.docs[index];
+                      return QuestionCard(
+                        quizAmount: lesson['LessonNo'],
+                        image: NetworkImage(lesson['Image_Url']),
+                        quizTitle: lesson['LessonTitle'],
+                        isLocked: appDataProvider.completedPastPapers.contains(
+                                int.parse(lesson['LessonNo'].toString()) - 1)
+                            ? false
+                            : appDataProvider.completedLessions.length == 28
+                                ? false
+                                : true,
+                        isCompleted: appDataProvider.completedPastPapers
+                            .contains(lesson['LessonNo']),
+                        score: 82.0,
+                      );
+                    });
+              }
+            },
           ),
         ),
       ),

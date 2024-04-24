@@ -1,5 +1,3 @@
-import 'package:miraijapanese/models/mark.dart';
-
 class Student {
   final String userID;
   final String firstName;
@@ -8,10 +6,8 @@ class Student {
   final String phoneNum;
   final String dateOfBirth;
   final String date;
-  final List<Mark> lessonMarks;
-  final List<Mark> pastPaperMarks;
-  final int completedLessons;
-  final int completedPastPapers;
+  final List<String> completedLessions;
+  final List<String> completedPastPapers;
 
   Student({
     required this.userID,
@@ -21,26 +17,11 @@ class Student {
     required this.phoneNum,
     required this.date,
     required this.dateOfBirth,
-    required this.lessonMarks,
-    required this.pastPaperMarks,
-    required this.completedLessons,
+    required this.completedLessions,
     required this.completedPastPapers,
   });
 
   factory Student.fromJson(Map<String, dynamic> json) {
-    List<Mark> parsedMarksLessons = [];
-    if (json['Lessions_Marks'] != null) {
-      var markList = json['Lessions_Marks'] as List;
-      parsedMarksLessons = markList.map((mark) => Mark.fromJson(mark)).toList();
-    }
-
-    List<Mark> parsedMarksPastPapers = [];
-    if (json['PastPapers_Marks'] != null) {
-      var markList = json['PastPapers_Marks'] as List;
-      parsedMarksPastPapers =
-          markList.map((mark) => Mark.fromJson(mark)).toList();
-    }
-
     return Student(
       userID: json['UserID'].toString(),
       firstName: json['FirstName'].toString(),
@@ -49,9 +30,7 @@ class Student {
       phoneNum: json['PhoneNumber'].toString(),
       dateOfBirth: json['DateOfBirth'].toString(),
       date: json['Registed_Date'],
-      lessonMarks: parsedMarksLessons,
-      pastPaperMarks: parsedMarksPastPapers,
-      completedLessons: json['Completed_Lessons'],
+      completedLessions: json['Completed_Lessons'],
       completedPastPapers: json['Completed_PastPapers'],
     );
   }
@@ -65,9 +44,7 @@ class Student {
       'PhoneNumber': phoneNum,
       'DateOfBirth': dateOfBirth,
       'Registed_Date': date,
-      'Lessions_Marks': lessonMarks.map((mark) => mark.toJson()).toList(),
-      'PastPapers_Marks': pastPaperMarks.map((mark) => mark.toJson()).toList(),
-      'Completed_Lessons': completedLessons,
+      'Completed_Lessons': completedLessions,
       'Completed_PastPapers': completedPastPapers,
     };
   }

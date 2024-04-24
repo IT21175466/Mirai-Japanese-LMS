@@ -4,6 +4,7 @@ import 'package:miraijapanese/firebase_options.dart';
 import 'package:miraijapanese/providers/app_data/app_data_provider.dart';
 import 'package:miraijapanese/providers/authentication/auth_provider.dart';
 import 'package:miraijapanese/providers/bottom_nav/bottom_nav_provider.dart';
+import 'package:miraijapanese/providers/quiz/question_provider.dart';
 import 'package:miraijapanese/routes/app_routes.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => BottomNavBarProvider()),
         ChangeNotifierProvider(create: (context) => AuthProvider()),
         ChangeNotifierProvider(create: (context) => AppDataProvider()),
+        ChangeNotifierProvider(create: (context) => QuestionProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

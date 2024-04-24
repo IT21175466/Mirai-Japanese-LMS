@@ -2,9 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:miraijapanese/constraints/app_colors.dart';
 import 'package:miraijapanese/providers/app_data/app_data_provider.dart';
-import 'package:miraijapanese/views/quiz/quiz_doing_screen.dart';
+import 'package:miraijapanese/views/quiz/quiz_lo0ading_screen.dart';
 import 'package:miraijapanese/widgets/question_card.dart';
-import 'package:miraijapanese/widgets/search_textfeild.dart';
 import 'package:provider/provider.dart';
 
 class QuizTab extends StatefulWidget {
@@ -23,7 +22,7 @@ class _QuizTabState extends State<QuizTab> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        toolbarHeight: 130,
+        //toolbarHeight: 130,
         title: Column(
           children: [
             Row(
@@ -44,13 +43,6 @@ class _QuizTabState extends State<QuizTab> {
                 ),
               ],
             ),
-            SizedBox(
-              height: 10,
-            ),
-            SearchTextField(
-              controller: searchController,
-              labelText: 'Search',
-            ),
           ],
         ),
       ),
@@ -60,6 +52,7 @@ class _QuizTabState extends State<QuizTab> {
             Container(
           height: screenHeight - 130,
           width: screenWidth,
+          padding: EdgeInsets.only(top: 20),
           child: StreamBuilder(
             stream:
                 FirebaseFirestore.instance.collection('Lessons').snapshots(),
@@ -84,11 +77,13 @@ class _QuizTabState extends State<QuizTab> {
                             if (appDataProvider.completedLessions.contains(
                                     int.parse(lesson['LessonNo'].toString()) -
                                         1) ||
-                                lesson['LessonNo'] == '1') {
+                                lesson['LessonNo'] == '2') {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => QuizDoingScreen(),
+                                  builder: (context) => QuizLoadingScreen(
+                                    quizNo: lesson['LessonNo'],
+                                  ),
                                 ),
                               );
                             } else {

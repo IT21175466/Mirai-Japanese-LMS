@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:miraijapanese/constraints/app_colors.dart';
 import 'package:miraijapanese/providers/app_data/app_data_provider.dart';
 import 'package:miraijapanese/widgets/question_card.dart';
-import 'package:miraijapanese/widgets/search_textfeild.dart';
 import 'package:provider/provider.dart';
 
 class PastPapersTab extends StatefulWidget {
@@ -22,7 +21,7 @@ class _PastPapersTabState extends State<PastPapersTab> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        toolbarHeight: 130,
+        //toolbarHeight: 130,
         title: Column(
           children: [
             Row(
@@ -43,13 +42,6 @@ class _PastPapersTabState extends State<PastPapersTab> {
                 ),
               ],
             ),
-            SizedBox(
-              height: 10,
-            ),
-            SearchTextField(
-              controller: searchController,
-              labelText: 'Search',
-            ),
           ],
         ),
       ),
@@ -59,6 +51,7 @@ class _PastPapersTabState extends State<PastPapersTab> {
             Container(
           height: screenHeight - 130,
           width: screenWidth,
+          padding: EdgeInsets.only(top: 20),
           child: StreamBuilder(
             stream:
                 FirebaseFirestore.instance.collection('PastPapers').snapshots(),

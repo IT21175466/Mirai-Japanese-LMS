@@ -14,7 +14,15 @@ class QuizDoingScreen extends StatefulWidget {
 }
 
 class _QuizDoingScreenState extends State<QuizDoingScreen> {
+  var questionP = QuestionProvider();
+
   int index = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    questionP = Provider.of<QuestionProvider>(context, listen: false);
+  }
 
   void goToNextQuestion() {
     setState(() {
@@ -26,6 +34,13 @@ class _QuizDoingScreenState extends State<QuizDoingScreen> {
     setState(() {
       index--;
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    questionP.isAnswerSelected = false;
+    questionP.selectedAnswer = '';
   }
 
   @override

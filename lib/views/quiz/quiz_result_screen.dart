@@ -272,11 +272,15 @@ class _QuizResultsPageState extends State<QuizResultsPage> {
                 },
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15),
-                  child: CustomButton(
-                    text: 'Done',
-                    height: 50,
-                    width: screenWidth,
-                  ),
+                  child: appDataProvider.loading
+                      ? Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : CustomButton(
+                          text: 'Done',
+                          height: 50,
+                          width: screenWidth,
+                        ),
                 ),
               ),
             ),

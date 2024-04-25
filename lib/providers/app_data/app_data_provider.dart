@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:miraijapanese/views/splash_screen/data_loading_splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppDataProvider extends ChangeNotifier {
   bool isLoading = false;
 
   String? studentID = '';
+  bool loading = false;
 
   //Student
   String firstName = '...';
@@ -75,7 +77,8 @@ class AppDataProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> addLessonAndSaveToFirestore(String newLessonScore) async {
+  Future<void> addLessonAndSaveToFirestore(
+      String newLessonScore, BuildContext context) async {
     await getStudentID();
     // Update the local list
     completedLessions.add(newLessonScore);
@@ -93,7 +96,13 @@ class AppDataProvider extends ChangeNotifier {
       print('Error updating Firestore: $e');
     } finally {
       completedLessions = [];
+      loading = false;
       notifyListeners();
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+              builder: (context) => DataLoadingSplash(sID: studentID!)),
+          (route) => false);
     }
   }
 

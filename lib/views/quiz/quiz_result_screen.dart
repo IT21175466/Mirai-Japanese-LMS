@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:miraijapanese/constraints/app_colors.dart';
 import 'package:miraijapanese/providers/app_data/app_data_provider.dart';
 import 'package:miraijapanese/providers/quiz/question_provider.dart';
+import 'package:miraijapanese/views/home/home_screen.dart';
 import 'package:miraijapanese/widgets/button_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -30,12 +31,16 @@ class _QuizResultsPageState extends State<QuizResultsPage> {
       body: Container(
         height: screenHeight,
         width: screenWidth,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/quizResultBG.jpg'),
-            fit: BoxFit.cover,
-          ),
-        ),
+        decoration: widget.score >= 80
+            ? BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/quizResultBG.jpg'),
+                  fit: BoxFit.cover,
+                ),
+              )
+            : BoxDecoration(
+                color: Colors.white,
+              ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -45,11 +50,13 @@ class _QuizResultsPageState extends State<QuizResultsPage> {
               child: SizedBox(
                 height: 150,
                 width: 150,
-                child: Image.asset('assets/images/goodJob.png'),
+                child: widget.score >= 80
+                    ? Image.asset('assets/images/goodJob.png')
+                    : Image.asset('assets/images/fail.png'),
               ),
             ),
             Text(
-              'Good Job',
+              widget.score >= 80 ? 'Good Job' : 'Oh...',
               style: TextStyle(
                 fontFamily: 'Poppins',
                 fontWeight: FontWeight.w700,
@@ -58,7 +65,9 @@ class _QuizResultsPageState extends State<QuizResultsPage> {
               ),
             ),
             Text(
-              'You finished the quiz successfully!',
+              widget.score >= 80
+                  ? 'You passed the lesson successfully!'
+                  : 'You failed the lesson. Try again!',
               style: TextStyle(
                 fontFamily: 'Poppins',
                 fontWeight: FontWeight.w400,
@@ -222,12 +231,26 @@ class _QuizResultsPageState extends State<QuizResultsPage> {
                       QuestionProvider questionProvider, Widget? child) =>
                   GestureDetector(
                 onTap: () {
-                  print('Done');
                   questionProvider.isAnswerSelected = false;
                   questionProvider.selectedAnswer = '';
+                  if (widget.score < 80.0) {
+                    print('You Fail!, Try Again!');
 
-                  appDataProvider
-                      .addLessonAndSaveToFirestore(widget.score.toString());
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HomeScreen(),
+                        ),
+                        (route) => false);
+                  } else {
+                    setState(() {
+                      appDataProvider.loading = true;
+                    });
+                    print('Done');
+
+                    appDataProvider.addLessonAndSaveToFirestore(
+                        widget.score.toString(), context);
+                  }
                 },
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 15),

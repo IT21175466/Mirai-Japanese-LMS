@@ -35,6 +35,8 @@ class AppDataProvider extends ChangeNotifier {
       // completedLessions = studentDoc.get('Completed_Lessons');
       // completedPastPapers = studentDoc.get('Completed_PastPapers');
 
+      await getData();
+
       notifyListeners();
     } catch (e) {
       print(e);

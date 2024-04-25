@@ -70,14 +70,13 @@ class _QuizTabState extends State<QuizTab> {
                       DocumentSnapshot lesson = snapshot.data!.docs[index];
                       return GestureDetector(
                         onTap: () {
-                          if (appDataProvider.completedLessions
-                              .contains(lesson['LessonNo'])) {
+                          if (appDataProvider.completedLessions.length >=
+                              int.parse(lesson['LessonNo'])) {
                             print('Quiz Did!');
                           } else {
-                            if (appDataProvider.completedLessions.contains(
-                                    int.parse(lesson['LessonNo'].toString()) -
-                                        1) ||
-                                lesson['LessonNo'] == '2') {
+                            if (appDataProvider.completedLessions.length ==
+                                    int.parse(lesson['LessonNo']) - 1 ||
+                                lesson['LessonNo'] == '1') {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -95,15 +94,23 @@ class _QuizTabState extends State<QuizTab> {
                           quizAmount: lesson['LessonNo'],
                           image: NetworkImage(lesson['Image_Url']),
                           quizTitle: lesson['LessonTitle'],
-                          isLocked: appDataProvider.completedLessions.contains(
-                                  int.parse(lesson['LessonNo'].toString()) - 1)
-                              ? false
-                              : lesson['LessonNo'] == '1'
+                          isLocked:
+                              appDataProvider.completedLessions.length + 1 >=
+                                      int.parse(lesson['LessonNo'].toString())
                                   ? false
-                                  : true,
-                          isCompleted: appDataProvider.completedLessions
-                              .contains(lesson['LessonNo']),
-                          score: 82.0,
+                                  : lesson['LessonNo'] == '1'
+                                      ? false
+                                      : true,
+                          isCompleted:
+                              appDataProvider.completedLessions.length >=
+                                      int.parse(lesson['LessonNo'].toString())
+                                  ? true
+                                  : false,
+                          score: appDataProvider.completedLessions.length >=
+                                  int.parse(lesson['LessonNo'].toString())
+                              ? double.parse(appDataProvider.completedLessions[
+                                  int.parse(lesson['LessonNo']) - 1])
+                              : 0.0,
                         ),
                       );
                     });

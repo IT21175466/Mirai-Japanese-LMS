@@ -237,7 +237,9 @@ class _HomeTabState extends State<HomeTab> {
                         animation: true,
                         animationDuration: 1500,
                         lineHeight: 10.0,
-                        percent: appDataProvider.completedLessions.length / 28,
+                        percent: (appDataProvider.lessonsScore /
+                                appDataProvider.completedLessions.length) /
+                            100,
                         progressColor: AppColors.borderColor,
                         barRadius: const Radius.circular(16),
                       ),
@@ -247,7 +249,7 @@ class _HomeTabState extends State<HomeTab> {
                       Align(
                         alignment: Alignment.bottomRight,
                         child: Text(
-                          '${appDataProvider.completedLessions.length} out of 28',
+                          '${appDataProvider.completedLessions.length} out of ${appDataProvider.lessonsAmount}',
                           style: TextStyle(
                             fontFamily: 'Poppins',
                             fontWeight: FontWeight.w600,
@@ -302,7 +304,7 @@ class _HomeTabState extends State<HomeTab> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Past Paers Score',
+                                'Past Papers Score',
                                 style: TextStyle(
                                   fontFamily: 'Poppins',
                                   fontWeight: FontWeight.w500,
@@ -332,6 +334,9 @@ class _HomeTabState extends State<HomeTab> {
                         animationDuration: 1500,
                         lineHeight: 10.0,
                         percent: 0,
+                        // (appDataProvider.pastPaspersScore /
+                        //         appDataProvider.completedPastPapers.length) /
+                        //     100,
                         progressColor: AppColors.borderColor,
                         barRadius: const Radius.circular(16),
                       ),
@@ -341,7 +346,7 @@ class _HomeTabState extends State<HomeTab> {
                       Align(
                         alignment: Alignment.bottomRight,
                         child: Text(
-                          '${appDataProvider.completedPastPapers.length} out of 8',
+                          '${appDataProvider.completedPastPapers.length} out of ${appDataProvider.pastPapersAmount}',
                           style: TextStyle(
                             fontFamily: 'Poppins',
                             fontWeight: FontWeight.w600,

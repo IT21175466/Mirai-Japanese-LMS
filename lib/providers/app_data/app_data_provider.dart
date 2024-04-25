@@ -9,6 +9,12 @@ class AppDataProvider extends ChangeNotifier {
   String? studentID = '';
   bool loading = false;
 
+  int lessonsAmount = 0;
+  int pastPapersAmount = 0;
+
+  double lessonsScore = 0.0;
+  double pastPaspersScore = 0.0;
+
   //Student
   String firstName = '...';
   String? lastName = '...';
@@ -36,6 +42,8 @@ class AppDataProvider extends ChangeNotifier {
       // completedPastPapers = studentDoc.get('Completed_PastPapers');
 
       await getData();
+      await getAndCountLessonsAndPapersAmount();
+      getScores();
 
       notifyListeners();
     } catch (e) {
@@ -113,5 +121,36 @@ class AppDataProvider extends ChangeNotifier {
 
     studentID = prefs.getString('userID');
     notifyListeners();
+  }
+
+  getAndCountLessonsAndPapersAmount() async {
+    final QuerySnapshot qSnapLessons =
+        await FirebaseFirestore.instance.collection('Lessons').get();
+    lessonsAmount = qSnapLessons.docs.length;
+    notifyListeners();
+
+    final QuerySnapshot qSnapPastPapers =
+        await FirebaseFirestore.instance.collection('PastPapers').get();
+    pastPapersAmount = qSnapPastPapers.docs.length;
+    notifyListeners();
+  }
+
+  getScores() {
+    lessonsScore = 0.0;
+    pastPaspersScore = 0.0;
+
+    for (int i = 0; i < completedLessions.length; i++) {
+      lessonsScore = lessonsScore + double.parse(completedLessions[i]);
+
+      notifyListeners();
+    }
+    print('Lessons Score: $lessonsScore');
+
+    for (int i = 0; i < completedPastPapers.length; i++) {
+      pastPaspersScore =
+          pastPaspersScore + double.parse(completedPastPapers[i]);
+      notifyListeners();
+    }
+    print('Past Papers Score: $pastPaspersScore');
   }
 }

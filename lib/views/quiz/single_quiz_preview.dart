@@ -114,27 +114,26 @@ class _SingleQuizToPreviewState extends State<SingleQuizToPreview> {
                   SizedBox(
                     height: 15,
                   ),
-                  Row(
-                    children: [
-                      Text(
-                        '${questionProvider.questions[index].questionNumber}. ',
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18,
-                          color: AppColors.textBlackColor,
-                        ),
-                      ),
-                      Text(
-                        questionProvider.questions[index].question,
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18,
-                          color: AppColors.textBlackColor,
-                        ),
-                      ),
-                    ],
+                  Text(
+                    'Question ${questionProvider.questions[index].questionNumber}',
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w400,
+                      fontSize: 15,
+                      color: AppColors.accentColor,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    questionProvider.questions[index].question,
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w500,
+                      fontSize: 18,
+                      color: AppColors.textBlackColor,
+                    ),
                   ),
                   questionProvider.questions[index].questionImage.isEmpty
                       ? SizedBox()

@@ -63,6 +63,31 @@ class AppDataProvider extends ChangeNotifier {
           .doc(studentID)
           .get();
 
+      final documentSnapshotPastPapers = await FirebaseFirestore.instance
+          .collection("Students")
+          .doc(studentID)
+          .get();
+
+      if (documentSnapshotPastPapers.exists) {
+        final List<dynamic> pastPaperData =
+            documentSnapshotPastPapers.data()!['Completed_PastPapers'];
+
+        // Clear existing data in completedLessons list
+        completedPastPapers.clear();
+
+        // Iterate through lessonsData and add them to completedLessons
+        for (dynamic pastPaperData in pastPaperData) {
+          completedPastPapers.add(pastPaperData
+              .toString()); // Assuming lessonData is a String or can be converted to String
+          print(pastPaperData.toString());
+        }
+
+        notifyListeners();
+        print('Past Papers fetched successfully.');
+      } else {
+        print('Document does not exist');
+      }
+
       if (documentSnapshot.exists) {
         final List<dynamic> lessonsData =
             documentSnapshot.data()!['Completed_Lessons'];
@@ -78,7 +103,7 @@ class AppDataProvider extends ChangeNotifier {
         }
 
         notifyListeners();
-        print('Data fetched successfully.');
+        print('Lessons fetched successfully.');
       } else {
         print('Document does not exist');
       }
@@ -106,6 +131,35 @@ class AppDataProvider extends ChangeNotifier {
       print('Error updating Firestore: $e');
     } finally {
       completedLessions = [];
+      loading = false;
+      notifyListeners();
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+              builder: (context) => DataLoadingSplash(sID: studentID!)),
+          (route) => false);
+    }
+  }
+
+  Future<void> addPastPaperAndSaveToFirestore(
+      String newLessonScore, BuildContext context) async {
+    await getStudentID();
+    // Update the local list
+    completedPastPapers.add(newLessonScore);
+
+    // Update Firestore document
+    try {
+      await FirebaseFirestore.instance
+          .collection('Students') // Change 'users' to your collection
+          .doc(studentID)
+          .update({
+        'Completed_PastPapers': completedPastPapers,
+      });
+      print('Past Paper added and updated in Firestore successfully.');
+    } catch (e) {
+      print('Error updating Firestore: $e');
+    } finally {
+      completedPastPapers = [];
       loading = false;
       notifyListeners();
       Navigator.pushAndRemoveUntil(

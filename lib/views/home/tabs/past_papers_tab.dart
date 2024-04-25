@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:miraijapanese/constraints/app_colors.dart';
 import 'package:miraijapanese/providers/app_data/app_data_provider.dart';
+import 'package:miraijapanese/views/past_paper/past_paper_loading_screen.dart';
 import 'package:miraijapanese/widgets/question_card.dart';
 import 'package:provider/provider.dart';
 
@@ -67,19 +68,51 @@ class _PastPapersTabState extends State<PastPapersTab> {
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (context, index) {
                       DocumentSnapshot lesson = snapshot.data!.docs[index];
-                      return QuestionCard(
-                        quizAmount: lesson['LessonNo'],
-                        image: NetworkImage(lesson['Image_Url']),
-                        quizTitle: lesson['LessonTitle'],
-                        isLocked: appDataProvider.completedPastPapers.contains(
-                                int.parse(lesson['LessonNo'].toString()) - 1)
-                            ? false
-                            : appDataProvider.completedLessions.length == 28
-                                ? false
-                                : true,
-                        isCompleted: appDataProvider.completedPastPapers
-                            .contains(lesson['LessonNo']),
-                        score: 82.0,
+                      return GestureDetector(
+                        onTap: () {
+                          if (appDataProvider.completedPastPapers.length >=
+                              int.parse(lesson['LessonNo'])) {
+                            print('Quiz Did!');
+                          } else {
+                            if (appDataProvider.completedPastPapers.length ==
+                                    int.parse(lesson['LessonNo']) - 1 ||
+                                lesson['LessonNo'] == '1') {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => PastPaperLoadingScreen(
+                                    quizNo: lesson['LessonNo'],
+                                  ),
+                                ),
+                              );
+                            } else {
+                              print('Locked!');
+                            }
+                          }
+                        },
+                        child: QuestionCard(
+                          quizAmount: lesson['LessonNo'],
+                          image: NetworkImage(lesson['Image_Url']),
+                          quizTitle: lesson['LessonTitle'],
+                          isLocked:
+                              appDataProvider.completedPastPapers.length + 1 >=
+                                      int.parse(lesson['LessonNo'].toString())
+                                  ? false
+                                  : lesson['LessonNo'] == '1'
+                                      ? false
+                                      : true,
+                          isCompleted:
+                              appDataProvider.completedPastPapers.length >=
+                                      int.parse(lesson['LessonNo'].toString())
+                                  ? true
+                                  : false,
+                          score: appDataProvider.completedPastPapers.length >=
+                                  int.parse(lesson['LessonNo'].toString())
+                              ? double.parse(
+                                  appDataProvider.completedPastPapers[
+                                      int.parse(lesson['LessonNo']) - 1])
+                              : 0.0,
+                        ),
                       );
                     });
               }

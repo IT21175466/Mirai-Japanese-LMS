@@ -237,9 +237,11 @@ class _HomeTabState extends State<HomeTab> {
                         animation: true,
                         animationDuration: 1500,
                         lineHeight: 10.0,
-                        percent: (appDataProvider.lessonsScore /
-                                appDataProvider.completedLessions.length) /
-                            100,
+                        percent: appDataProvider.completedLessions.length == 0
+                            ? 0
+                            : (appDataProvider.lessonsScore /
+                                    appDataProvider.completedLessions.length) /
+                                100,
                         progressColor: AppColors.borderColor,
                         barRadius: const Radius.circular(16),
                       ),
@@ -333,10 +335,12 @@ class _HomeTabState extends State<HomeTab> {
                         animation: true,
                         animationDuration: 1500,
                         lineHeight: 10.0,
-                        percent: 0,
-                        // (appDataProvider.pastPaspersScore /
-                        //         appDataProvider.completedPastPapers.length) /
-                        //     100,
+                        percent: appDataProvider.completedPastPapers.length == 0
+                            ? 0
+                            : (appDataProvider.pastPaspersScore /
+                                    appDataProvider
+                                        .completedPastPapers.length) /
+                                100,
                         progressColor: AppColors.borderColor,
                         barRadius: const Radius.circular(16),
                       ),

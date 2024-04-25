@@ -9,6 +9,8 @@ class QuestionProvider extends ChangeNotifier {
   bool gettingQuestions = false;
   List<Question> questions = [];
 
+  List<String> selectedAnswers = [];
+
   //
   String questionNumber = '';
   String questionA = '';

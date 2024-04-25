@@ -41,6 +41,10 @@ class _QuizDoingScreenState extends State<QuizDoingScreen> {
     super.dispose();
     questionP.isAnswerSelected = false;
     questionP.selectedAnswer = '';
+    questionP.selectedAnswers = [];
+    questionP.questions = [];
+    questionP.myCorrectAnswers = 0;
+    questionP.myWrongAnswers = 0;
   }
 
   @override

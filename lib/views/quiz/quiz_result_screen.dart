@@ -3,6 +3,7 @@ import 'package:miraijapanese/constraints/app_colors.dart';
 import 'package:miraijapanese/providers/app_data/app_data_provider.dart';
 import 'package:miraijapanese/providers/quiz/question_provider.dart';
 import 'package:miraijapanese/views/home/home_screen.dart';
+import 'package:miraijapanese/views/quiz/single_quiz_preview.dart';
 import 'package:miraijapanese/widgets/button_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -199,25 +200,35 @@ class _QuizResultsPageState extends State<QuizResultsPage> {
             ),
             Spacer(),
             Spacer(),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              child: Container(
-                height: 50,
-                width: screenWidth,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(25),
-                  border: Border.all(
-                    color: AppColors.accentColor,
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SingleQuizToPreview(),
                   ),
-                ),
-                child: Center(
-                  child: Text(
-                    'Preview',
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 17,
+                );
+              },
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15),
+                child: Container(
+                  height: 50,
+                  width: screenWidth,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(25),
+                    border: Border.all(
                       color: AppColors.accentColor,
+                    ),
+                  ),
+                  child: Center(
+                    child: Text(
+                      'Preview',
+                      style: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w500,
+                        fontSize: 17,
+                        color: AppColors.accentColor,
+                      ),
                     ),
                   ),
                 ),
@@ -231,8 +242,15 @@ class _QuizResultsPageState extends State<QuizResultsPage> {
                       QuestionProvider questionProvider, Widget? child) =>
                   GestureDetector(
                 onTap: () {
-                  questionProvider.isAnswerSelected = false;
-                  questionProvider.selectedAnswer = '';
+                  if (mounted) {
+                    questionProvider.isAnswerSelected = false;
+                    questionProvider.selectedAnswer = '';
+                    questionProvider.questions = [];
+                    questionProvider.selectedAnswers = [];
+                    questionProvider.myCorrectAnswers = 0;
+                    questionProvider.myWrongAnswers = 0;
+                  }
+
                   if (widget.score < 80.0) {
                     print('You Fail!, Try Again!');
 

@@ -35,21 +35,27 @@ class _AnswerTileState extends State<AnswerTile> {
   void initState() {
     super.initState();
     audioPlayer.onPlayerStateChanged.listen((event) {
-      setState(() {
-        isPlaying = event == PlayerState.playing;
-      });
+      if (mounted) {
+        setState(() {
+          isPlaying = event == PlayerState.playing;
+        });
+      }
     });
 
     audioPlayer.onDurationChanged.listen((newDuration) {
-      setState(() {
-        duration = newDuration;
-      });
+      if (mounted) {
+        setState(() {
+          duration = newDuration;
+        });
+      }
     });
 
     audioPlayer.onPositionChanged.listen((newDuration) {
-      setState(() {
-        position = newDuration;
-      });
+      if (mounted) {
+        setState(() {
+          position = newDuration;
+        });
+      }
     });
   }
 

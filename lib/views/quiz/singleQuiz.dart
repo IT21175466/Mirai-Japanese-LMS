@@ -57,21 +57,27 @@ class _SingleQuestionScreenState extends State<SingleQuestionScreen> {
   void initState() {
     super.initState();
     audioPlayer.onPlayerStateChanged.listen((event) {
-      setState(() {
-        isPlaying = event == PlayerState.playing;
-      });
+      if (mounted) {
+        setState(() {
+          isPlaying = event == PlayerState.playing;
+        });
+      }
     });
 
     audioPlayer.onDurationChanged.listen((newDuration) {
-      setState(() {
-        duration = newDuration;
-      });
+      if (mounted) {
+        setState(() {
+          duration = newDuration;
+        });
+      }
     });
 
     audioPlayer.onPositionChanged.listen((newDuration) {
-      setState(() {
-        position = newDuration;
-      });
+      if (mounted) {
+        setState(() {
+          position = newDuration;
+        });
+      }
     });
   }
 
@@ -229,6 +235,7 @@ class _SingleQuestionScreenState extends State<SingleQuestionScreen> {
                 questionProvider.checkAnswerCorrectOrNot(
                     widget.correctAnswer, widget.answer1);
                 setState(() {
+                  questionProvider.selectedAnswers.add(widget.answer1);
                   questionProvider.selectedAnswer = widget.answer1;
                   questionProvider.isAnswerSelected = true;
                 });
@@ -271,6 +278,7 @@ class _SingleQuestionScreenState extends State<SingleQuestionScreen> {
                 questionProvider.checkAnswerCorrectOrNot(
                     widget.correctAnswer, widget.answer2);
                 setState(() {
+                  questionProvider.selectedAnswers.add(widget.answer2);
                   questionProvider.selectedAnswer = widget.answer2;
                   questionProvider.isAnswerSelected = true;
                 });
@@ -313,6 +321,7 @@ class _SingleQuestionScreenState extends State<SingleQuestionScreen> {
                 questionProvider.checkAnswerCorrectOrNot(
                     widget.correctAnswer, widget.answer3);
                 setState(() {
+                  questionProvider.selectedAnswers.add(widget.answer3);
                   questionProvider.selectedAnswer = widget.answer3;
                   questionProvider.isAnswerSelected = true;
                 });

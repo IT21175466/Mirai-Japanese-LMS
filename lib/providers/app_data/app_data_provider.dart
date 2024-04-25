@@ -32,8 +32,8 @@ class AppDataProvider extends ChangeNotifier {
       phoneNum = studentDoc.get('PhoneNumber');
       dateOfBirth = studentDoc.get('DateOfBirth');
       registedDate = studentDoc.get('Registed_Date');
-      completedLessions = studentDoc.get('Completed_Lessons');
-      completedPastPapers = studentDoc.get('Completed_PastPapers');
+      // completedLessions = studentDoc.get('Completed_Lessons');
+      // completedPastPapers = studentDoc.get('Completed_PastPapers');
 
       notifyListeners();
     } catch (e) {

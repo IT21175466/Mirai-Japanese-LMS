@@ -27,6 +27,29 @@ class QuestionProvider extends ChangeNotifier {
   String answer2Voice = '';
   String answer3Voice = '';
 
+  //Question
+  int myCorrectAnswers = 0;
+  int myWrongAnswers = 0;
+
+  bool answerIsCorrect = false;
+  bool isAnswerSelected = false;
+
+  String selectedAnswer = '';
+
+  checkAnswerCorrectOrNot(String defaultCorrectAnswer, String selectedAnswer) {
+    if (defaultCorrectAnswer == selectedAnswer) {
+      answerIsCorrect = true;
+      myCorrectAnswers = myCorrectAnswers + 1;
+      print("Answer is correct");
+      notifyListeners();
+    } else {
+      answerIsCorrect = false;
+      print("Answer is wrong");
+      myWrongAnswers = myWrongAnswers + 1;
+      notifyListeners();
+    }
+  }
+
   Future<void> getQuestions(String lessonNo, BuildContext context) async {
     gettingQuestions = true;
     questions.clear();

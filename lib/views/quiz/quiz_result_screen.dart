@@ -1,15 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:miraijapanese/constraints/app_colors.dart';
+import 'package:miraijapanese/providers/quiz/question_provider.dart';
 import 'package:miraijapanese/widgets/button_widget.dart';
+import 'package:provider/provider.dart';
 
 class QuizResultsPage extends StatefulWidget {
-  const QuizResultsPage({super.key});
+  final int corrects;
+  final int wrongs;
+  final int quesionAmount;
+  const QuizResultsPage(
+      {super.key,
+      required this.corrects,
+      required this.wrongs,
+      required this.quesionAmount});
 
   @override
   State<QuizResultsPage> createState() => _QuizResultsPageState();
 }
 
 class _QuizResultsPageState extends State<QuizResultsPage> {
+  double score = 0.0;
+  @override
+  void initState() {
+    super.initState();
+    final questionProvider =
+        Provider.of<QuestionProvider>(context, listen: false);
+    questionProvider.isAnswerSelected = false;
+    questionProvider.selectedAnswer = '';
+    score = (widget.corrects / widget.quesionAmount) * 100;
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -27,9 +47,7 @@ class _QuizResultsPageState extends State<QuizResultsPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(
-              height: AppBar().preferredSize.height,
-            ),
+            Spacer(),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 30),
               child: SizedBox(
@@ -69,7 +87,7 @@ class _QuizResultsPageState extends State<QuizResultsPage> {
               ),
             ),
             Text(
-              ' 82%',
+              '${score.toStringAsFixed(1)}%',
               style: TextStyle(
                 fontFamily: 'Poppins',
                 fontWeight: FontWeight.w600,
@@ -93,7 +111,7 @@ class _QuizResultsPageState extends State<QuizResultsPage> {
                   child: Column(
                     children: [
                       Text(
-                        '25',
+                        '${widget.quesionAmount.toString()}',
                         style: TextStyle(
                           fontFamily: 'Poppins',
                           fontWeight: FontWeight.w700,
@@ -124,7 +142,7 @@ class _QuizResultsPageState extends State<QuizResultsPage> {
                   child: Column(
                     children: [
                       Text(
-                        '21',
+                        '${widget.corrects.toString()}',
                         style: TextStyle(
                           fontFamily: 'Poppins',
                           fontWeight: FontWeight.w700,
@@ -155,7 +173,7 @@ class _QuizResultsPageState extends State<QuizResultsPage> {
                   child: Column(
                     children: [
                       Text(
-                        '4',
+                        '${widget.wrongs.toString()}',
                         style: TextStyle(
                           fontFamily: 'Poppins',
                           fontWeight: FontWeight.w700,

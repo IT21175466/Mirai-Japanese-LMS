@@ -1,7 +1,9 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:miraijapanese/constraints/app_colors.dart';
+import 'package:miraijapanese/providers/quiz/question_provider.dart';
 import 'package:miraijapanese/widgets/answer_tile.dart';
+import 'package:provider/provider.dart';
 
 class SingleQuestionScreen extends StatefulWidget {
   final String questionNumber;
@@ -47,12 +49,9 @@ class _SingleQuestionScreenState extends State<SingleQuestionScreen> {
   Duration duration = Duration.zero;
   Duration position = Duration.zero;
 
-  bool isAnswerSelected = false;
   bool isSelected1 = false;
   bool isSelected2 = false;
   bool isSelected3 = false;
-
-  String selectedAnswer = '';
 
   @override
   void initState() {
@@ -98,191 +97,258 @@ class _SingleQuestionScreenState extends State<SingleQuestionScreen> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          widget.question,
-          style: TextStyle(
-            fontFamily: 'Poppins',
-            fontWeight: FontWeight.w500,
-            fontSize: 18,
-            color: AppColors.textBlackColor,
+    return Consumer(
+      builder: (BuildContext context, QuestionProvider questionProvider,
+              Widget? child) =>
+          Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            widget.question,
+            style: TextStyle(
+              fontFamily: 'Poppins',
+              fontWeight: FontWeight.w500,
+              fontSize: 18,
+              color: AppColors.textBlackColor,
+            ),
           ),
-        ),
-        SizedBox(
-          height: 15,
-        ),
-        widget.questionImage.isEmpty
-            ? SizedBox()
-            : Container(
-                width: screenWidth,
-                height: 180,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: AppColors.lowAccentColor,
-                  border: Border.all(
-                    color: AppColors.textGrayColor,
-                    width: 0.5,
-                  ),
-                  image: DecorationImage(
-                    image: NetworkImage(widget.questionImage),
-                  ),
-                ),
-              ),
-        widget.questionVoice.isEmpty
-            ? SizedBox()
-            : Container(
-                width: screenWidth,
-                height: 150,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: AppColors.lowAccentColor,
-                  border: Border.all(
-                    color: AppColors.textGrayColor,
-                    width: 0.5,
+          SizedBox(
+            height: 15,
+          ),
+          widget.questionImage.isEmpty
+              ? SizedBox()
+              : Container(
+                  width: screenWidth,
+                  height: 180,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: AppColors.lowAccentColor,
+                    border: Border.all(
+                      color: AppColors.textGrayColor,
+                      width: 0.5,
+                    ),
+                    image: DecorationImage(
+                      image: NetworkImage(widget.questionImage),
+                    ),
                   ),
                 ),
-                child: Column(
-                  children: [
-                    Spacer(),
-                    Slider(
-                      min: 0,
-                      max: duration.inSeconds.toDouble(),
-                      value: position.inSeconds.toDouble(),
-                      onChanged: (value) async {
-                        final position = Duration(seconds: value.toInt());
-                        await audioPlayer.seek(position);
+          widget.questionVoice.isEmpty
+              ? SizedBox()
+              : Container(
+                  width: screenWidth,
+                  height: 150,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: AppColors.lowAccentColor,
+                    border: Border.all(
+                      color: AppColors.textGrayColor,
+                      width: 0.5,
+                    ),
+                  ),
+                  child: Column(
+                    children: [
+                      Spacer(),
+                      Slider(
+                        min: 0,
+                        max: duration.inSeconds.toDouble(),
+                        value: position.inSeconds.toDouble(),
+                        onChanged: (value) async {
+                          final position = Duration(seconds: value.toInt());
+                          await audioPlayer.seek(position);
 
-                        await audioPlayer.resume();
-                      },
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15),
-                      child: Row(
-                        children: [
-                          Text(
-                            formatTime(position),
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.w400,
-                              fontSize: 12,
-                              color: AppColors.textBlackColor,
-                            ),
-                          ),
-                          Spacer(),
-                          Text(
-                            formatTime(duration - position),
-                            style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.w400,
-                              fontSize: 12,
-                              color: AppColors.textBlackColor,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    CircleAvatar(
-                      radius: 25,
-                      backgroundColor: AppColors.accentColor,
-                      child: IconButton(
-                        onPressed: () async {
-                          if (isPlaying) {
-                            await audioPlayer.pause();
-                          } else {
-                            await audioPlayer.play(UrlSource(
-                              widget.questionVoice,
-                            ));
-                          }
+                          await audioPlayer.resume();
                         },
-                        icon: Icon(
-                          isPlaying ? Icons.pause : Icons.play_arrow,
-                          color: Colors.white,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 15),
+                        child: Row(
+                          children: [
+                            Text(
+                              formatTime(position),
+                              style: TextStyle(
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w400,
+                                fontSize: 12,
+                                color: AppColors.textBlackColor,
+                              ),
+                            ),
+                            Spacer(),
+                            Text(
+                              formatTime(duration - position),
+                              style: TextStyle(
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w400,
+                                fontSize: 12,
+                                color: AppColors.textBlackColor,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ),
-                    Spacer(),
-                  ],
+                      CircleAvatar(
+                        radius: 25,
+                        backgroundColor: AppColors.accentColor,
+                        child: IconButton(
+                          onPressed: () async {
+                            if (isPlaying) {
+                              await audioPlayer.pause();
+                            } else {
+                              await audioPlayer.play(UrlSource(
+                                widget.questionVoice,
+                              ));
+                            }
+                          },
+                          icon: Icon(
+                            isPlaying ? Icons.pause : Icons.play_arrow,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      Spacer(),
+                    ],
+                  ),
                 ),
-              ),
-        SizedBox(
-          height: 25,
-        ),
-        Text(
-          'Answers',
-          style: TextStyle(
-            fontFamily: 'Poppins',
-            fontWeight: FontWeight.w400,
-            fontSize: 16,
-            color: AppColors.textGrayColor,
+          SizedBox(
+            height: 25,
           ),
-        ),
-        Divider(),
-        GestureDetector(
-          onTap: () {
-            setState(() {
-              isAnswerSelected = true;
-              isSelected1 = true;
-              selectedAnswer = widget.answer1;
-            });
-          },
-          child: AnswerTile(
-            answer: widget.answer1,
-            color: Colors.red,
-            textColor: Colors.white,
-            borderColor: Colors.red,
-            customIcon: Icon(
-              Icons.close,
-              color: Colors.white,
+          Text(
+            'Answers',
+            style: TextStyle(
+              fontFamily: 'Poppins',
+              fontWeight: FontWeight.w400,
+              fontSize: 16,
+              color: AppColors.textGrayColor,
             ),
-            answerVoice: widget.answer1Voice,
-            answerImage: widget.answer1Image,
           ),
-        ),
-        GestureDetector(
-          onTap: () {
-            setState(() {
-              isAnswerSelected = true;
-              isSelected2 = true;
-              selectedAnswer = widget.answer2;
-            });
-          },
-          child: AnswerTile(
-            answer: widget.answer2,
-            color: Colors.white,
-            textColor: AppColors.textBlackColor,
-            borderColor: AppColors.borderColor,
-            customIcon: Icon(
-              Icons.close,
-              color: Colors.white,
+          Divider(),
+          GestureDetector(
+            onTap: () {
+              if (questionProvider.isAnswerSelected == true) {
+                print("You Already Selected A Answer!");
+              } else {
+                questionProvider.checkAnswerCorrectOrNot(
+                    widget.correctAnswer, widget.answer1);
+                setState(() {
+                  questionProvider.selectedAnswer = widget.answer1;
+                  questionProvider.isAnswerSelected = true;
+                });
+              }
+            },
+            child: AnswerTile(
+              answer: widget.answer1,
+              color: questionProvider.selectedAnswer == widget.answer1
+                  ? widget.correctAnswer == widget.answer1
+                      ? Colors.green
+                      : Colors.red
+                  : Colors.white,
+              textColor: questionProvider.selectedAnswer == widget.answer1
+                  ? Colors.white
+                  : AppColors.textBlackColor,
+              borderColor: AppColors.borderColor,
+              customIcon: questionProvider.selectedAnswer == widget.answer1
+                  ? widget.correctAnswer == widget.answer1
+                      ? Icon(
+                          Icons.done,
+                          color: Colors.white,
+                        )
+                      : Icon(
+                          Icons.close,
+                          color: Colors.white,
+                        )
+                  : Icon(
+                      Icons.close,
+                      color: Colors.white,
+                    ),
+              answerVoice: widget.answer1Voice,
+              answerImage: widget.answer1Image,
             ),
-            answerVoice: widget.answer2Voice,
-            answerImage: widget.answer2Image,
           ),
-        ),
-        GestureDetector(
-          onTap: () {
-            setState(() {
-              isAnswerSelected = true;
-              isSelected3 = true;
-              selectedAnswer = widget.answer3;
-            });
-          },
-          child: AnswerTile(
-            answer: widget.answer3,
-            color: Colors.green,
-            textColor: Colors.white,
-            borderColor: Colors.green,
-            customIcon: Icon(
-              Icons.done,
-              color: Colors.white,
+          GestureDetector(
+            onTap: () {
+              if (questionProvider.isAnswerSelected == true) {
+                print("You Already Selected A Answer!");
+              } else {
+                questionProvider.checkAnswerCorrectOrNot(
+                    widget.correctAnswer, widget.answer2);
+                setState(() {
+                  questionProvider.selectedAnswer = widget.answer2;
+                  questionProvider.isAnswerSelected = true;
+                });
+              }
+            },
+            child: AnswerTile(
+              answer: widget.answer2,
+              color: questionProvider.selectedAnswer == widget.answer2
+                  ? widget.correctAnswer == widget.answer2
+                      ? Colors.green
+                      : Colors.red
+                  : Colors.white,
+              textColor: questionProvider.selectedAnswer == widget.answer2
+                  ? Colors.white
+                  : AppColors.textBlackColor,
+              borderColor: AppColors.borderColor,
+              customIcon: questionProvider.selectedAnswer == widget.answer2
+                  ? widget.correctAnswer == widget.answer2
+                      ? Icon(
+                          Icons.done,
+                          color: Colors.white,
+                        )
+                      : Icon(
+                          Icons.close,
+                          color: Colors.white,
+                        )
+                  : Icon(
+                      Icons.close,
+                      color: Colors.white,
+                    ),
+              answerVoice: widget.answer2Voice,
+              answerImage: widget.answer2Image,
             ),
-            answerVoice: widget.answer3Voice,
-            answerImage: widget.answer3Image,
           ),
-        ),
-      ],
+          GestureDetector(
+            onTap: () {
+              if (questionProvider.isAnswerSelected == true) {
+                print("You Already Selected A Answer!");
+              } else {
+                questionProvider.checkAnswerCorrectOrNot(
+                    widget.correctAnswer, widget.answer3);
+                setState(() {
+                  questionProvider.selectedAnswer = widget.answer3;
+                  questionProvider.isAnswerSelected = true;
+                });
+              }
+            },
+            child: AnswerTile(
+              answer: widget.answer3,
+              color: questionProvider.selectedAnswer == widget.answer3
+                  ? widget.correctAnswer == widget.answer3
+                      ? Colors.green
+                      : Colors.red
+                  : Colors.white,
+              textColor: questionProvider.selectedAnswer == widget.answer3
+                  ? Colors.white
+                  : AppColors.textBlackColor,
+              borderColor: AppColors.borderColor,
+              customIcon: questionProvider.selectedAnswer == widget.answer3
+                  ? widget.correctAnswer == widget.answer3
+                      ? Icon(
+                          Icons.done,
+                          color: Colors.white,
+                        )
+                      : Icon(
+                          Icons.close,
+                          color: Colors.white,
+                        )
+                  : Icon(
+                      Icons.close,
+                      color: Colors.white,
+                    ),
+              answerVoice: widget.answer3Voice,
+              answerImage: widget.answer3Image,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

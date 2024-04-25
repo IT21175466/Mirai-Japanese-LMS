@@ -7,7 +7,8 @@ import 'package:miraijapanese/widgets/button_widget.dart';
 import 'package:provider/provider.dart';
 
 class QuizDoingScreen extends StatefulWidget {
-  const QuizDoingScreen({super.key});
+  final String quizName;
+  const QuizDoingScreen({super.key, required this.quizName});
 
   @override
   State<QuizDoingScreen> createState() => _QuizDoingScreenState();
@@ -68,7 +69,7 @@ class _QuizDoingScreenState extends State<QuizDoingScreen> {
                 Row(
                   children: [
                     Text(
-                      'Language Quiz I',
+                      widget.quizName,
                       style: TextStyle(
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.w600,

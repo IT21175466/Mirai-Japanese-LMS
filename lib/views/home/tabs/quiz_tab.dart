@@ -82,6 +82,7 @@ class _QuizTabState extends State<QuizTab> {
                                 MaterialPageRoute(
                                   builder: (context) => QuizLoadingScreen(
                                     quizNo: lesson['LessonNo'],
+                                    lessonTitle: lesson['LessonTitle'],
                                   ),
                                 ),
                               );

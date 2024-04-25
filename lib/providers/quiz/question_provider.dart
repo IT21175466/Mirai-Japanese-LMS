@@ -53,7 +53,8 @@ class QuestionProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> getQuestions(String lessonNo, BuildContext context) async {
+  Future<void> getQuestions(
+      String lessonNo, BuildContext context, String name) async {
     gettingQuestions = true;
     questions.clear();
     try {
@@ -112,14 +113,17 @@ class QuestionProvider extends ChangeNotifier {
         () => Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => QuizDoingScreen(),
+            builder: (context) => QuizDoingScreen(
+              quizName: name,
+            ),
           ),
         ),
       );
     }
   }
 
-  Future<void> getPastPapers(String lessonNo, BuildContext context) async {
+  Future<void> getPastPapers(
+      String lessonNo, BuildContext context, String name) async {
     gettingQuestions = true;
     questions.clear();
     try {
@@ -178,7 +182,9 @@ class QuestionProvider extends ChangeNotifier {
         () => Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => PastPaperDoingScreen(),
+            builder: (context) => PastPaperDoingScreen(
+              quizName: name,
+            ),
           ),
         ),
       );

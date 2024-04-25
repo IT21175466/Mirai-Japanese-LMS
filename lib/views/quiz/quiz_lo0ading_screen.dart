@@ -6,7 +6,9 @@ import 'package:provider/provider.dart';
 
 class QuizLoadingScreen extends StatefulWidget {
   final String quizNo;
-  const QuizLoadingScreen({super.key, required this.quizNo});
+  final String lessonTitle;
+  const QuizLoadingScreen(
+      {super.key, required this.quizNo, required this.lessonTitle});
 
   @override
   State<QuizLoadingScreen> createState() => _QuizLoadingScreenState();
@@ -17,7 +19,7 @@ class _QuizLoadingScreenState extends State<QuizLoadingScreen> {
   void initState() {
     super.initState();
     final quizProvider = Provider.of<QuestionProvider>(context, listen: false);
-    quizProvider.getQuestions(widget.quizNo, context);
+    quizProvider.getQuestions(widget.quizNo, context, widget.lessonTitle);
   }
 
   @override

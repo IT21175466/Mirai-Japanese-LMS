@@ -82,6 +82,7 @@ class _PastPapersTabState extends State<PastPapersTab> {
                                 MaterialPageRoute(
                                   builder: (context) => PastPaperLoadingScreen(
                                     quizNo: lesson['LessonNo'],
+                                    lessonTitle: lesson['LessonTitle'],
                                   ),
                                 ),
                               );

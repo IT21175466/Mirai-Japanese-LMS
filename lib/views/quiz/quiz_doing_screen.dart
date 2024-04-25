@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:miraijapanese/constraints/app_colors.dart';
 import 'package:miraijapanese/providers/quiz/question_provider.dart';
-import 'package:miraijapanese/views/quiz/quiz_result_screen.dart';
+import 'package:miraijapanese/views/quiz/result_loading_screen.dart';
 import 'package:miraijapanese/views/quiz/singleQuiz.dart';
 import 'package:miraijapanese/widgets/button_widget.dart';
 import 'package:provider/provider.dart';
@@ -131,10 +131,10 @@ class _QuizDoingScreenState extends State<QuizDoingScreen> {
                     child: questionProvider.questions.length == index + 1
                         ? GestureDetector(
                             onTap: () {
-                              Navigator.pushReplacement(
+                              Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => QuizResultsPage(
+                                  builder: (context) => ResultsLoadingScreen(
                                     corrects: questionProvider.myCorrectAnswers,
                                     wrongs: questionProvider.myWrongAnswers,
                                     quesionAmount:

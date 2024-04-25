@@ -185,10 +185,7 @@ class _ProfileTabState extends State<ProfileTab> {
                               animation: true,
                               animationDuration: 1500,
                               lineHeight: 10.0,
-                              percent: appDataProvider
-                                      .completedLessions.length +
-                                  appDataProvider.completedPastPapers.length /
-                                      1,
+                              percent: 0.8,
                               // (appDataProvider.lessionsScore.length +
                               //     appDataProvider
                               //         .pastPapersScore.length), // Remove + 1

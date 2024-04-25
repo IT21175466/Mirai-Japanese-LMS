@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miraijapanese/constraints/app_colors.dart';
+import 'package:miraijapanese/providers/app_data/app_data_provider.dart';
 import 'package:miraijapanese/providers/quiz/question_provider.dart';
 import 'package:miraijapanese/widgets/button_widget.dart';
 import 'package:provider/provider.dart';
@@ -8,28 +9,19 @@ class QuizResultsPage extends StatefulWidget {
   final int corrects;
   final int wrongs;
   final int quesionAmount;
+  final double score;
   const QuizResultsPage(
       {super.key,
       required this.corrects,
       required this.wrongs,
-      required this.quesionAmount});
+      required this.quesionAmount,
+      required this.score});
 
   @override
   State<QuizResultsPage> createState() => _QuizResultsPageState();
 }
 
 class _QuizResultsPageState extends State<QuizResultsPage> {
-  double score = 0.0;
-  @override
-  void initState() {
-    super.initState();
-    final questionProvider =
-        Provider.of<QuestionProvider>(context, listen: false);
-    questionProvider.isAnswerSelected = false;
-    questionProvider.selectedAnswer = '';
-    score = (widget.corrects / widget.quesionAmount) * 100;
-  }
-
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -87,7 +79,7 @@ class _QuizResultsPageState extends State<QuizResultsPage> {
               ),
             ),
             Text(
-              '${score.toStringAsFixed(1)}%',
+              '${widget.score.toStringAsFixed(1)}%',
               style: TextStyle(
                 fontFamily: 'Poppins',
                 fontWeight: FontWeight.w600,
@@ -225,12 +217,26 @@ class _QuizResultsPageState extends State<QuizResultsPage> {
             SizedBox(
               height: 10,
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              child: CustomButton(
-                text: 'Done',
-                height: 50,
-                width: screenWidth,
+            Consumer2(
+              builder: (BuildContext context, AppDataProvider appDataProvider,
+                      QuestionProvider questionProvider, Widget? child) =>
+                  GestureDetector(
+                onTap: () {
+                  print('Done');
+                  questionProvider.isAnswerSelected = false;
+                  questionProvider.selectedAnswer = '';
+
+                  appDataProvider
+                      .addLessonAndSaveToFirestore(widget.score.toString());
+                },
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  child: CustomButton(
+                    text: 'Done',
+                    height: 50,
+                    width: screenWidth,
+                  ),
+                ),
               ),
             ),
             Spacer(),

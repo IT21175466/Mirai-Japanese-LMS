@@ -59,6 +59,7 @@ class _QuizDoingScreenState extends State<QuizDoingScreen> {
         appBar: AppBar(
           toolbarHeight: AppBar().preferredSize.height + 30,
           automaticallyImplyLeading: false,
+          backgroundColor: AppColors.accentColor,
           title: SizedBox(
             width: screenWidth,
             child: Column(
@@ -74,13 +75,16 @@ class _QuizDoingScreenState extends State<QuizDoingScreen> {
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.w600,
                         fontSize: 20,
-                        color: AppColors.accentColor,
+                        color: Colors.white,
                       ),
                     ),
                     Spacer(),
                     SizedBox(
                       height: 20,
-                      child: Image.asset('assets/icons/exit.png'),
+                      child: Image.asset(
+                        'assets/icons/exit.png',
+                        color: Colors.white,
+                      ),
                     ),
                   ],
                 ),
@@ -88,15 +92,19 @@ class _QuizDoingScreenState extends State<QuizDoingScreen> {
                   height: 5,
                 ),
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
                       'Question ${index + 1}',
                       style: TextStyle(
                         fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.w400,
                         fontSize: 16,
-                        color: AppColors.textGrayColor,
+                        color: Colors.white,
                       ),
+                    ),
+                    SizedBox(
+                      width: 5,
                     ),
                     Text(
                       '/${questionProvider.questions.length}',
@@ -109,9 +117,6 @@ class _QuizDoingScreenState extends State<QuizDoingScreen> {
                     ),
                   ],
                 ),
-                Divider(
-                  color: AppColors.textGrayColor,
-                ),
               ],
             ),
           ),
@@ -119,7 +124,7 @@ class _QuizDoingScreenState extends State<QuizDoingScreen> {
         body: Container(
           height: screenHeight,
           width: screenWidth,
-          padding: EdgeInsets.symmetric(horizontal: 15),
+          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

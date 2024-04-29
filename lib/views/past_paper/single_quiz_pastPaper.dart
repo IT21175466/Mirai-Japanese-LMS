@@ -1,5 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:miraijapanese/constraints/app_colors.dart';
 import 'package:miraijapanese/providers/quiz/question_provider.dart';
 import 'package:miraijapanese/widgets/answer_tile.dart';
@@ -104,6 +105,254 @@ class _SingleQuestionPastPaperState extends State<SingleQuestionPastPaper> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
+
+    void showExitAlertDialog() {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return StatefulBuilder(builder: (context, setState) {
+            return AlertDialog(
+              contentPadding: EdgeInsets.zero,
+              content: Stack(
+                children: [
+                  Container(
+                    height: 300,
+                    width: screenWidth,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: Colors.white,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          'Do you want to exit from the lesson?',
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w600,
+                            fontSize: 23,
+                            color: AppColors.accentColor,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          'Your Answer is Correct!',
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w400,
+                            fontSize: 10,
+                            color: AppColors.textGrayColor,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              actions: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(top: 10),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      'OK',
+                      style: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                        color: AppColors.accentColor,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+              ],
+            );
+          });
+        },
+      );
+    }
+
+    void showCorrectOrWrongAlertDialog(
+        String selectedA, String correctA, bool isCorrectA) {
+      if (selectedA == correctA) {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return StatefulBuilder(builder: (context, setState) {
+              return AlertDialog(
+                contentPadding: EdgeInsets.zero,
+                content: Stack(
+                  children: [
+                    Container(
+                      height: 300,
+                      width: screenWidth,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30),
+                        color: Colors.white,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            height: 10,
+                          ),
+                          SizedBox(
+                            width: screenWidth / 2,
+                            child: Lottie.asset(
+                                'assets/animations/correctAnswer.json'),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            'Congratulations!',
+                            style: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w600,
+                              fontSize: 23,
+                              color: AppColors.accentColor,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            'Your Answer is Correct!',
+                            style: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w400,
+                              fontSize: 10,
+                              color: AppColors.textGrayColor,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
+                    ),
+                    isCorrectA
+                        ? Container(
+                            height: 300,
+                            width: screenWidth,
+                            child: Center(
+                              child: Lottie.asset(
+                                  'assets/animations/congratulations.json'),
+                            ),
+                          )
+                        : SizedBox(),
+                  ],
+                ),
+                actions: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(top: 10),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        'OK',
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16,
+                          color: AppColors.accentColor,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            });
+          },
+        );
+      } else {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return StatefulBuilder(builder: (context, setState) {
+              return AlertDialog(
+                contentPadding: EdgeInsets.zero,
+                content: Container(
+                  height: 300,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    color: Colors.white,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 10,
+                      ),
+                      SizedBox(
+                        width: screenWidth / 2,
+                        child:
+                            Lottie.asset('assets/animations/wrongAnswer.json'),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        'Oh...',
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w600,
+                          fontSize: 23,
+                          color: AppColors.accentColor,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        'Your Answer is Wrong!',
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w400,
+                          fontSize: 10,
+                          color: AppColors.textGrayColor,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                ),
+                actions: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(top: 10),
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        'OK',
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.w600,
+                          fontSize: 16,
+                          color: AppColors.accentColor,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            });
+          },
+        );
+      }
+    }
+
     return Consumer(
       builder: (BuildContext context, QuestionProvider questionProvider,
               Widget? child) =>
@@ -241,6 +490,15 @@ class _SingleQuestionPastPaperState extends State<SingleQuestionPastPaper> {
                   questionProvider.isAnswerSelected = true;
                 });
               }
+              showCorrectOrWrongAlertDialog(
+                widget.answer1,
+                widget.correctAnswer,
+                questionProvider.selectedAnswer == widget.answer1
+                    ? widget.correctAnswer == widget.answer1
+                        ? true
+                        : false
+                    : false,
+              );
             },
             child: AnswerTile(
               answer: widget.answer1,
@@ -283,6 +541,15 @@ class _SingleQuestionPastPaperState extends State<SingleQuestionPastPaper> {
                   questionProvider.selectedAnswer = widget.answer2;
                   questionProvider.isAnswerSelected = true;
                 });
+                showCorrectOrWrongAlertDialog(
+                  widget.answer2,
+                  widget.correctAnswer,
+                  questionProvider.selectedAnswer == widget.answer2
+                      ? widget.correctAnswer == widget.answer2
+                          ? true
+                          : false
+                      : false,
+                );
               }
             },
             child: AnswerTile(
@@ -326,6 +593,15 @@ class _SingleQuestionPastPaperState extends State<SingleQuestionPastPaper> {
                   questionProvider.selectedAnswer = widget.answer3;
                   questionProvider.isAnswerSelected = true;
                 });
+                showCorrectOrWrongAlertDialog(
+                  widget.answer3,
+                  widget.correctAnswer,
+                  questionProvider.selectedAnswer == widget.answer3
+                      ? widget.correctAnswer == widget.answer3
+                          ? true
+                          : false
+                      : false,
+                );
               }
             },
             child: AnswerTile(

@@ -59,6 +59,7 @@ class _PastPaperDoingScreenState extends State<PastPaperDoingScreen> {
         appBar: AppBar(
           toolbarHeight: AppBar().preferredSize.height + 30,
           automaticallyImplyLeading: false,
+          backgroundColor: AppColors.accentColor,
           title: SizedBox(
             width: screenWidth,
             child: Column(
@@ -74,29 +75,36 @@ class _PastPaperDoingScreenState extends State<PastPaperDoingScreen> {
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.w600,
                         fontSize: 20,
-                        color: AppColors.accentColor,
+                        color: Colors.white,
                       ),
                     ),
                     Spacer(),
                     SizedBox(
                       height: 20,
-                      child: Image.asset('assets/icons/exit.png'),
+                      child: Image.asset(
+                        'assets/icons/exit.png',
+                        color: Colors.white,
+                      ),
                     ),
                   ],
                 ),
                 SizedBox(
-                  height: 5,
+                  height: 10,
                 ),
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     Text(
                       'Question ${index + 1}',
                       style: TextStyle(
                         fontFamily: 'Poppins',
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.w400,
                         fontSize: 16,
-                        color: AppColors.textGrayColor,
+                        color: Colors.white,
                       ),
+                    ),
+                    SizedBox(
+                      width: 5,
                     ),
                     Text(
                       '/${questionProvider.questions.length}',
@@ -109,9 +117,6 @@ class _PastPaperDoingScreenState extends State<PastPaperDoingScreen> {
                     ),
                   ],
                 ),
-                Divider(
-                  color: AppColors.textGrayColor,
-                ),
               ],
             ),
           ),
@@ -119,7 +124,7 @@ class _PastPaperDoingScreenState extends State<PastPaperDoingScreen> {
         body: Container(
           height: screenHeight,
           width: screenWidth,
-          padding: EdgeInsets.symmetric(horizontal: 15),
+          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

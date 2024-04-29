@@ -394,66 +394,74 @@ class _HomeTabState extends State<HomeTab> {
                     ],
                   ),
                 ),
-                Container(
-                  width: screenWidth,
-                  child: StreamBuilder(
-                    stream: FirebaseFirestore.instance
-                        .collection('Lessons')
-                        .snapshots(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(child: CircularProgressIndicator());
-                      } else if (snapshot.hasError) {
-                        return Text('Error: ${snapshot.error}');
-                      } else if (!snapshot.hasData) {
-                        return Text('No data available');
-                      } else {
-                        return QuestionCard(
-                          quizAmount: snapshot.data!.docs[appDataProvider
-                              .completedLessions.length]['LessonNo'],
-                          image: NetworkImage(snapshot.data!.docs[
-                                  appDataProvider.completedLessions.length]
-                              ['Image_Url']),
-                          quizTitle: snapshot.data!.docs[appDataProvider
-                              .completedLessions.length]['LessonTitle'],
-                          isLocked: false,
-                          isCompleted: false,
-                          score: 0.0,
-                        );
-                      }
-                    },
-                  ),
-                ),
-                Container(
-                  width: screenWidth,
-                  child: StreamBuilder(
-                    stream: FirebaseFirestore.instance
-                        .collection('PastPapers')
-                        .snapshots(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(child: CircularProgressIndicator());
-                      } else if (snapshot.hasError) {
-                        return Text('Error: ${snapshot.error}');
-                      } else if (!snapshot.hasData) {
-                        return Text('No data available');
-                      } else {
-                        return QuestionCard(
-                          quizAmount: snapshot.data!.docs[appDataProvider
-                              .completedPastPapers.length]['LessonNo'],
-                          image: NetworkImage(snapshot.data!.docs[
-                                  appDataProvider.completedPastPapers.length]
-                              ['Image_Url']),
-                          quizTitle: snapshot.data!.docs[appDataProvider
-                              .completedPastPapers.length]['LessonTitle'],
-                          isLocked: false,
-                          isCompleted: false,
-                          score: 0.0,
-                        );
-                      }
-                    },
-                  ),
-                ),
+                appDataProvider.completedLessions.length ==
+                        appDataProvider.lessonsAmount
+                    ? SizedBox()
+                    : Container(
+                        width: screenWidth,
+                        child: StreamBuilder(
+                          stream: FirebaseFirestore.instance
+                              .collection('Lessons')
+                              .snapshots(),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return Center(child: CircularProgressIndicator());
+                            } else if (snapshot.hasError) {
+                              return Text('Error: ${snapshot.error}');
+                            } else if (!snapshot.hasData) {
+                              return Text('No data available');
+                            } else {
+                              return QuestionCard(
+                                quizAmount: snapshot.data!.docs[appDataProvider
+                                    .completedLessions.length]['LessonNo'],
+                                image: NetworkImage(snapshot.data!.docs[
+                                    appDataProvider.completedLessions
+                                        .length]['Image_Url']),
+                                quizTitle: snapshot.data!.docs[appDataProvider
+                                    .completedLessions.length]['LessonTitle'],
+                                isLocked: false,
+                                isCompleted: false,
+                                score: 0.0,
+                              );
+                            }
+                          },
+                        ),
+                      ),
+                appDataProvider.completedPastPapers.length ==
+                        appDataProvider.pastPapersAmount
+                    ? SizedBox()
+                    : Container(
+                        width: screenWidth,
+                        child: StreamBuilder(
+                          stream: FirebaseFirestore.instance
+                              .collection('PastPapers')
+                              .snapshots(),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return Center(child: CircularProgressIndicator());
+                            } else if (snapshot.hasError) {
+                              return Text('Error: ${snapshot.error}');
+                            } else if (!snapshot.hasData) {
+                              return Text('No data available');
+                            } else {
+                              return QuestionCard(
+                                quizAmount: snapshot.data!.docs[appDataProvider
+                                    .completedPastPapers.length]['LessonNo'],
+                                image: NetworkImage(snapshot.data!.docs[
+                                    appDataProvider.completedPastPapers
+                                        .length]['Image_Url']),
+                                quizTitle: snapshot.data!.docs[appDataProvider
+                                    .completedPastPapers.length]['LessonTitle'],
+                                isLocked: false,
+                                isCompleted: false,
+                                score: 0.0,
+                              );
+                            }
+                          },
+                        ),
+                      ),
                 SizedBox(
                   height: 20,
                 ),

@@ -265,6 +265,7 @@ class _SingleQuizToPreviewState extends State<SingleQuizToPreview> {
                               ),
                     answerVoice: questionProvider.questions[index].answer1Voice,
                     answerImage: questionProvider.questions[index].answer1Image,
+                    questionNumber: 'A',
                   ),
                   AnswerTile(
                     answer: questionProvider.questions[index].answer2,
@@ -297,6 +298,7 @@ class _SingleQuizToPreviewState extends State<SingleQuizToPreview> {
                               ),
                     answerVoice: questionProvider.questions[index].answer2Voice,
                     answerImage: questionProvider.questions[index].answer2Image,
+                    questionNumber: 'B',
                   ),
                   AnswerTile(
                     answer: questionProvider.questions[index].answer3,
@@ -329,6 +331,7 @@ class _SingleQuizToPreviewState extends State<SingleQuizToPreview> {
                               ),
                     answerVoice: questionProvider.questions[index].answer3Voice,
                     answerImage: questionProvider.questions[index].answer3Image,
+                    questionNumber: 'C',
                   ),
                   SizedBox(
                     height: 10,

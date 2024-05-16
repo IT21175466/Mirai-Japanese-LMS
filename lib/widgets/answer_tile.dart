@@ -10,6 +10,7 @@ class AnswerTile extends StatefulWidget {
   final Icon customIcon;
   final String answerVoice;
   final String answerImage;
+  final String questionNumber;
   const AnswerTile({
     super.key,
     required this.answer,
@@ -19,6 +20,7 @@ class AnswerTile extends StatefulWidget {
     required this.customIcon,
     required this.answerVoice,
     required this.answerImage,
+    required this.questionNumber,
   });
 
   @override
@@ -83,9 +85,8 @@ class _AnswerTileState extends State<AnswerTile> {
     double screenWidth = MediaQuery.of(context).size.width;
     return Container(
       width: screenWidth,
-      //height: 50,
+      height: 100,
       margin: EdgeInsets.symmetric(vertical: 5),
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: widget.color,
@@ -97,6 +98,31 @@ class _AnswerTileState extends State<AnswerTile> {
         children: [
           Row(
             children: [
+              Container(
+                height: 50,
+                width: 50,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(8),
+                    bottomRight: Radius.circular(8),
+                  ),
+                  color: AppColors.borderColor,
+                ),
+                child: Center(
+                  child: Text(
+                    widget.questionNumber,
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
               Text(
                 widget.answer,
                 style: TextStyle(

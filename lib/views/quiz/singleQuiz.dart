@@ -299,7 +299,7 @@ class _SingleQuestionScreenState extends State<SingleQuestionScreen> {
               ? SizedBox()
               : Container(
                   width: screenWidth,
-                  height: 180,
+                  height: 150,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     color: AppColors.lowAccentColor,
@@ -451,6 +451,7 @@ class _SingleQuestionScreenState extends State<SingleQuestionScreen> {
                     ),
               answerVoice: widget.answer1Voice,
               answerImage: widget.answer1Image,
+              questionNumber: 'A',
             ),
           ),
           GestureDetector(
@@ -477,33 +478,33 @@ class _SingleQuestionScreenState extends State<SingleQuestionScreen> {
               }
             },
             child: AnswerTile(
-              answer: widget.answer2,
-              color: questionProvider.selectedAnswer == widget.answer2
-                  ? widget.correctAnswer == widget.answer2
-                      ? Colors.green
-                      : Colors.red
-                  : Colors.white,
-              textColor: questionProvider.selectedAnswer == widget.answer2
-                  ? Colors.white
-                  : AppColors.textBlackColor,
-              borderColor: AppColors.borderColor,
-              customIcon: questionProvider.selectedAnswer == widget.answer2
-                  ? widget.correctAnswer == widget.answer2
-                      ? Icon(
-                          Icons.done,
-                          color: Colors.white,
-                        )
-                      : Icon(
-                          Icons.close,
-                          color: Colors.white,
-                        )
-                  : Icon(
-                      Icons.close,
-                      color: Colors.white,
-                    ),
-              answerVoice: widget.answer2Voice,
-              answerImage: widget.answer2Image,
-            ),
+                answer: widget.answer2,
+                color: questionProvider.selectedAnswer == widget.answer2
+                    ? widget.correctAnswer == widget.answer2
+                        ? Colors.green
+                        : Colors.red
+                    : Colors.white,
+                textColor: questionProvider.selectedAnswer == widget.answer2
+                    ? Colors.white
+                    : AppColors.textBlackColor,
+                borderColor: AppColors.borderColor,
+                customIcon: questionProvider.selectedAnswer == widget.answer2
+                    ? widget.correctAnswer == widget.answer2
+                        ? Icon(
+                            Icons.done,
+                            color: Colors.white,
+                          )
+                        : Icon(
+                            Icons.close,
+                            color: Colors.white,
+                          )
+                    : Icon(
+                        Icons.close,
+                        color: Colors.white,
+                      ),
+                answerVoice: widget.answer2Voice,
+                answerImage: widget.answer2Image,
+                questionNumber: 'B'),
           ),
           GestureDetector(
             onTap: () {
@@ -529,33 +530,33 @@ class _SingleQuestionScreenState extends State<SingleQuestionScreen> {
               }
             },
             child: AnswerTile(
-              answer: widget.answer3,
-              color: questionProvider.selectedAnswer == widget.answer3
-                  ? widget.correctAnswer == widget.answer3
-                      ? Colors.green
-                      : Colors.red
-                  : Colors.white,
-              textColor: questionProvider.selectedAnswer == widget.answer3
-                  ? Colors.white
-                  : AppColors.textBlackColor,
-              borderColor: AppColors.borderColor,
-              customIcon: questionProvider.selectedAnswer == widget.answer3
-                  ? widget.correctAnswer == widget.answer3
-                      ? Icon(
-                          Icons.done,
-                          color: Colors.white,
-                        )
-                      : Icon(
-                          Icons.close,
-                          color: Colors.white,
-                        )
-                  : Icon(
-                      Icons.close,
-                      color: Colors.white,
-                    ),
-              answerVoice: widget.answer3Voice,
-              answerImage: widget.answer3Image,
-            ),
+                answer: widget.answer3,
+                color: questionProvider.selectedAnswer == widget.answer3
+                    ? widget.correctAnswer == widget.answer3
+                        ? Colors.green
+                        : Colors.red
+                    : Colors.white,
+                textColor: questionProvider.selectedAnswer == widget.answer3
+                    ? Colors.white
+                    : AppColors.textBlackColor,
+                borderColor: AppColors.borderColor,
+                customIcon: questionProvider.selectedAnswer == widget.answer3
+                    ? widget.correctAnswer == widget.answer3
+                        ? Icon(
+                            Icons.done,
+                            color: Colors.white,
+                          )
+                        : Icon(
+                            Icons.close,
+                            color: Colors.white,
+                          )
+                    : Icon(
+                        Icons.close,
+                        color: Colors.white,
+                      ),
+                answerVoice: widget.answer3Voice,
+                answerImage: widget.answer3Image,
+                questionNumber: 'C'),
           ),
         ],
       ),

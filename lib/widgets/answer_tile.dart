@@ -85,7 +85,7 @@ class _AnswerTileState extends State<AnswerTile> {
     double screenWidth = MediaQuery.of(context).size.width;
     return Container(
       width: screenWidth,
-      height: 100,
+      height: 80,
       margin: EdgeInsets.symmetric(vertical: 5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -97,10 +97,11 @@ class _AnswerTileState extends State<AnswerTile> {
       child: Column(
         children: [
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                height: 50,
-                width: 50,
+                height: 40,
+                width: 40,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(8),
@@ -123,39 +124,41 @@ class _AnswerTileState extends State<AnswerTile> {
               SizedBox(
                 width: 10,
               ),
-              Text(
-                widget.answer,
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16,
-                  color: widget.textColor,
+              Padding(
+                padding: EdgeInsets.only(top: 5),
+                child: Text(
+                  widget.answer,
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w500,
+                    fontSize: 15,
+                    color: widget.textColor,
+                  ),
                 ),
               ),
               Spacer(),
-              widget.customIcon,
+              widget.answerImage.isNotEmpty
+                  ? Align(
+                      alignment: Alignment.centerRight,
+                      child: Container(
+                        height: 68,
+                        width: 68,
+                        child: Image.network(widget.answerImage),
+                      ),
+                    )
+                  : SizedBox(),
+              Padding(
+                padding: EdgeInsets.only(top: 5),
+                child: widget.customIcon,
+              ),
+              SizedBox(
+                width: 10,
+              ),
             ],
           ),
           widget.answerImage.isNotEmpty || widget.answerVoice.isNotEmpty
               ? SizedBox(
                   height: 10,
-                )
-              : SizedBox(),
-          widget.answerImage.isNotEmpty
-              ? Container(
-                  width: screenWidth,
-                  height: 180,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: AppColors.lowAccentColor,
-                    border: Border.all(
-                      color: AppColors.textGrayColor,
-                      width: 0.5,
-                    ),
-                    image: DecorationImage(
-                      image: NetworkImage(widget.answerImage),
-                    ),
-                  ),
                 )
               : SizedBox(),
           widget.answerVoice.isNotEmpty

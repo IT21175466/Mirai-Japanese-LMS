@@ -110,125 +110,120 @@ class _SinglePastPaperPreviewState extends State<SinglePastPaperPreview> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: 15,
-                  ),
-                  Text(
-                    'Question ${questionProvider.questions[index].questionNumber}',
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w400,
-                      fontSize: 15,
-                      color: AppColors.accentColor,
-                    ),
-                  ),
-                  SizedBox(
                     height: 5,
                   ),
-                  Text(
-                    questionProvider.questions[index].question,
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 18,
-                      color: AppColors.textBlackColor,
+                  Container(
+                    width: screenWidth,
+                    height: 180,
+                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        color: AppColors.textGrayColor,
+                        width: 0.5,
+                      ),
                     ),
-                  ),
-                  questionProvider.questions[index].questionImage.isEmpty
-                      ? SizedBox()
-                      : Container(
-                          width: screenWidth,
-                          height: 180,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: AppColors.lowAccentColor,
-                            border: Border.all(
-                              color: AppColors.textGrayColor,
-                              width: 0.5,
-                            ),
-                            image: DecorationImage(
-                              image: NetworkImage(questionProvider
-                                  .questions[index].questionImage),
-                            ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          '${questionProvider.questions[index].questionNumber}. ${questionProvider.questions[index].question}',
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16,
+                            color: AppColors.textBlackColor,
                           ),
                         ),
-                  questionProvider.questions[index].questionVoice.isEmpty
-                      ? SizedBox()
-                      : Container(
-                          width: screenWidth,
-                          height: 150,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: AppColors.lowAccentColor,
-                            border: Border.all(
-                              color: AppColors.textGrayColor,
-                              width: 0.5,
-                            ),
-                          ),
-                          child: Column(
-                            children: [
-                              Spacer(),
-                              Slider(
-                                min: 0,
-                                max: duration.inSeconds.toDouble(),
-                                value: position.inSeconds.toDouble(),
-                                onChanged: (value) async {
-                                  final position =
-                                      Duration(seconds: value.toInt());
-                                  await audioPlayer.seek(position);
+                        SizedBox(
+                          height: 10,
+                        ),
+                        questionProvider
+                                .questions[index].questionImage.isNotEmpty
+                            ? Expanded(
+                                child: Image.network(questionProvider
+                                    .questions[index].questionImage),
+                              )
+                            : SizedBox(),
+                        questionProvider
+                                .questions[index].questionVoice.isNotEmpty
+                            ? Expanded(
+                                child: Container(
+                                  width: screenWidth,
+                                  height: 150,
+                                  child: Column(
+                                    children: [
+                                      Slider(
+                                        min: 0,
+                                        max: duration.inSeconds.toDouble(),
+                                        value: position.inSeconds.toDouble(),
+                                        onChanged: (value) async {
+                                          final position =
+                                              Duration(seconds: value.toInt());
+                                          await audioPlayer.seek(position);
 
-                                  await audioPlayer.resume();
-                                },
-                              ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 15),
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      formatTime(position),
-                                      style: TextStyle(
-                                        fontFamily: 'Poppins',
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 12,
-                                        color: AppColors.textBlackColor,
+                                          await audioPlayer.resume();
+                                        },
                                       ),
-                                    ),
-                                    Spacer(),
-                                    Text(
-                                      formatTime(duration - position),
-                                      style: TextStyle(
-                                        fontFamily: 'Poppins',
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 12,
-                                        color: AppColors.textBlackColor,
+                                      Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 15),
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              formatTime(position),
+                                              style: TextStyle(
+                                                fontFamily: 'Poppins',
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 12,
+                                                color: AppColors.textBlackColor,
+                                              ),
+                                            ),
+                                            Spacer(),
+                                            Text(
+                                              formatTime(duration - position),
+                                              style: TextStyle(
+                                                fontFamily: 'Poppins',
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 12,
+                                                color: AppColors.textBlackColor,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              CircleAvatar(
-                                radius: 25,
-                                backgroundColor: AppColors.accentColor,
-                                child: IconButton(
-                                  onPressed: () async {
-                                    if (isPlaying) {
-                                      await audioPlayer.pause();
-                                    } else {
-                                      await audioPlayer.play(UrlSource(
-                                        questionProvider
-                                            .questions[index].questionVoice,
-                                      ));
-                                    }
-                                  },
-                                  icon: Icon(
-                                    isPlaying ? Icons.pause : Icons.play_arrow,
-                                    color: Colors.white,
+                                      CircleAvatar(
+                                        radius: 25,
+                                        backgroundColor: AppColors.accentColor,
+                                        child: IconButton(
+                                          onPressed: () async {
+                                            if (isPlaying) {
+                                              await audioPlayer.pause();
+                                            } else {
+                                              await audioPlayer.play(UrlSource(
+                                                questionProvider
+                                                    .questions[index]
+                                                    .questionVoice,
+                                              ));
+                                            }
+                                          },
+                                          icon: Icon(
+                                            isPlaying
+                                                ? Icons.pause
+                                                : Icons.play_arrow,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ),
-                              Spacer(),
-                            ],
-                          ),
-                        ),
+                              )
+                            : SizedBox(),
+                      ],
+                    ),
+                  ),
                   SizedBox(
                     height: 5,
                   ),

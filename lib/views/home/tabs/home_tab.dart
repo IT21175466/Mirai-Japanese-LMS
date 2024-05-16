@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:miraijapanese/constraints/app_colors.dart';
 import 'package:miraijapanese/providers/app_data/app_data_provider.dart';
+import 'package:miraijapanese/providers/bottom_nav/bottom_nav_provider.dart';
 import 'package:miraijapanese/providers/quiz/question_provider.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
@@ -19,9 +20,12 @@ class _HomeTabState extends State<HomeTab> {
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
-    return Consumer2(
-      builder: (BuildContext context, QuestionProvider questionProvider,
-              AppDataProvider appDataProvider, Widget? child) =>
+    return Consumer3(
+      builder: (BuildContext context,
+              QuestionProvider questionProvider,
+              BottomNavBarProvider bottomNavBarProvider,
+              AppDataProvider appDataProvider,
+              Widget? child) =>
           Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -388,13 +392,18 @@ class _HomeTabState extends State<HomeTab> {
                         ),
                       ),
                       Spacer(),
-                      Text(
-                        'See All',
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w400,
-                          fontSize: 13,
-                          color: AppColors.accentColor,
+                      GestureDetector(
+                        onTap: () {
+                          bottomNavBarProvider.setIndex(1);
+                        },
+                        child: Text(
+                          'See All',
+                          style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w400,
+                            fontSize: 13,
+                            color: AppColors.accentColor,
+                          ),
                         ),
                       ),
                     ],

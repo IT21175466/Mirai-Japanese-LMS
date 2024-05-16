@@ -123,7 +123,7 @@ class _HomeTabState extends State<HomeTab> {
                         children: [
                           Spacer(),
                           Text(
-                            'Average Score',
+                            'Quiz Complete Rate',
                             style: TextStyle(
                               fontFamily: 'Poppins',
                               fontWeight: FontWeight.w500,
@@ -159,7 +159,7 @@ class _HomeTabState extends State<HomeTab> {
                         animation: true,
                         animationDuration: 1500,
                         center: Text(
-                          "${appDataProvider.completedLessions.length == 0 || appDataProvider.completedPastPapers.length == 0 ? 0 : (appDataProvider.completedLessions.length + appDataProvider.completedPastPapers.length / appDataProvider.lessonsAmount + appDataProvider.pastPapersAmount) / 100}",
+                          "${appDataProvider.completedLessions.length == 0 || appDataProvider.completedPastPapers.length == 0 ? 0 : ((appDataProvider.completedLessions.length + appDataProvider.completedPastPapers.length / appDataProvider.lessonsAmount + appDataProvider.pastPapersAmount) / 100).toStringAsFixed(2)}",
                           style: TextStyle(
                             fontFamily: 'Poppins',
                             fontWeight: FontWeight.w600,

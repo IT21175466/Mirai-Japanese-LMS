@@ -61,7 +61,6 @@ class _HomeTabState extends State<HomeTab> {
         body: Container(
           height: screenHeight,
           width: screenWidth,
-          //padding: EdgeInsets.symmetric(horizontal: 15),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -148,11 +147,19 @@ class _HomeTabState extends State<HomeTab> {
                       CircularPercentIndicator(
                         radius: 28.0,
                         lineWidth: 8.0,
-                        percent: 0.75,
+                        percent: appDataProvider.completedLessions.length ==
+                                    0 ||
+                                appDataProvider.completedPastPapers.length == 0
+                            ? 0
+                            : (appDataProvider.completedLessions.length +
+                                    appDataProvider.completedPastPapers.length /
+                                        appDataProvider.lessonsAmount +
+                                    appDataProvider.pastPapersAmount) /
+                                100,
                         animation: true,
                         animationDuration: 1500,
                         center: Text(
-                          "75%",
+                          "${appDataProvider.completedLessions.length == 0 || appDataProvider.completedPastPapers.length == 0 ? 0 : (appDataProvider.completedLessions.length + appDataProvider.completedPastPapers.length / appDataProvider.lessonsAmount + appDataProvider.pastPapersAmount) / 100}",
                           style: TextStyle(
                             fontFamily: 'Poppins',
                             fontWeight: FontWeight.w600,

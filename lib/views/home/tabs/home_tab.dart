@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:miraijapanese/constraints/app_colors.dart';
 import 'package:miraijapanese/providers/app_data/app_data_provider.dart';
 import 'package:miraijapanese/providers/quiz/question_provider.dart';
-import 'package:miraijapanese/widgets/question_card.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:provider/provider.dart';
@@ -412,17 +411,82 @@ class _HomeTabState extends State<HomeTab> {
                             } else if (!snapshot.hasData) {
                               return Text('No data available');
                             } else {
-                              return QuestionCard(
-                                quizAmount: snapshot.data!.docs[appDataProvider
-                                    .completedLessions.length]['LessonNo'],
-                                image: NetworkImage(snapshot.data!.docs[
-                                    appDataProvider.completedLessions
-                                        .length]['Image_Url']),
-                                quizTitle: snapshot.data!.docs[appDataProvider
-                                    .completedLessions.length]['LessonTitle'],
-                                isLocked: false,
-                                isCompleted: false,
-                                score: 0.0,
+                              return Stack(
+                                children: [
+                                  Container(
+                                    height: 70,
+                                    width: screenWidth,
+                                    margin: EdgeInsets.symmetric(
+                                        vertical: 5, horizontal: 15),
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 10),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        width: 0.5,
+                                        color: AppColors.borderColor,
+                                      ),
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          height: 51,
+                                          width: 51,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(12),
+                                            image: DecorationImage(
+                                              image: NetworkImage(snapshot
+                                                      .data!.docs[
+                                                  appDataProvider
+                                                      .completedLessions
+                                                      .length]['Image_Url']),
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Spacer(),
+                                            Text(
+                                              snapshot.data!.docs[
+                                                  appDataProvider
+                                                      .completedLessions
+                                                      .length]['LessonTitle'],
+                                              style: TextStyle(
+                                                fontFamily: 'Poppins',
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 18,
+                                                color: AppColors.textBlackColor,
+                                              ),
+                                            ),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  'Lesson ${snapshot.data!.docs[appDataProvider.completedLessions.length]['LessonNo']}',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Poppins',
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: 13,
+                                                    color:
+                                                        AppColors.textGrayColor,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Spacer(),
+                                          ],
+                                        ),
+                                        Spacer(),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               );
                             }
                           },
@@ -446,17 +510,82 @@ class _HomeTabState extends State<HomeTab> {
                             } else if (!snapshot.hasData) {
                               return Text('No data available');
                             } else {
-                              return QuestionCard(
-                                quizAmount: snapshot.data!.docs[appDataProvider
-                                    .completedPastPapers.length]['LessonNo'],
-                                image: NetworkImage(snapshot.data!.docs[
-                                    appDataProvider.completedPastPapers
-                                        .length]['Image_Url']),
-                                quizTitle: snapshot.data!.docs[appDataProvider
-                                    .completedPastPapers.length]['LessonTitle'],
-                                isLocked: false,
-                                isCompleted: false,
-                                score: 0.0,
+                              return Stack(
+                                children: [
+                                  Container(
+                                    height: 70,
+                                    width: screenWidth,
+                                    margin: EdgeInsets.symmetric(
+                                        vertical: 5, horizontal: 15),
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 10),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                        width: 0.5,
+                                        color: AppColors.borderColor,
+                                      ),
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          height: 51,
+                                          width: 51,
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(12),
+                                            image: DecorationImage(
+                                              image: NetworkImage(snapshot
+                                                      .data!.docs[
+                                                  appDataProvider
+                                                      .completedPastPapers
+                                                      .length]['Image_Url']),
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Spacer(),
+                                            Text(
+                                              snapshot.data!.docs[
+                                                  appDataProvider
+                                                      .completedPastPapers
+                                                      .length]['LessonTitle'],
+                                              style: TextStyle(
+                                                fontFamily: 'Poppins',
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 18,
+                                                color: AppColors.textBlackColor,
+                                              ),
+                                            ),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  'Lesson ${snapshot.data!.docs[appDataProvider.completedPastPapers.length]['LessonNo']}',
+                                                  style: TextStyle(
+                                                    fontFamily: 'Poppins',
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: 13,
+                                                    color:
+                                                        AppColors.textGrayColor,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Spacer(),
+                                          ],
+                                        ),
+                                        Spacer(),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               );
                             }
                           },

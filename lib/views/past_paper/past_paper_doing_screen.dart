@@ -1,6 +1,10 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:miraijapanese/constraints/app_colors.dart';
 import 'package:miraijapanese/providers/quiz/question_provider.dart';
+import 'package:miraijapanese/views/home/home_screen.dart';
 import 'package:miraijapanese/views/past_paper/past_paper_result_loading.dart';
 import 'package:miraijapanese/views/past_paper/single_quiz_pastPaper.dart';
 import 'package:miraijapanese/widgets/button_widget.dart';
@@ -79,11 +83,134 @@ class _PastPaperDoingScreenState extends State<PastPaperDoingScreen> {
                       ),
                     ),
                     Spacer(),
-                    SizedBox(
-                      height: 20,
-                      child: Image.asset(
-                        'assets/icons/exit.png',
-                        color: Colors.white,
+                    GestureDetector(
+                      onTap: () {
+                        if (Platform.isIOS) {
+                          showCupertinoDialog(
+                            context: context,
+                            builder: (ctx) => CupertinoAlertDialog(
+                              title: Text(
+                                "Alert",
+                                style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              content: Text(
+                                "Do you want to exit in exam?",
+                                style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () {
+                                    questionProvider.isAnswerSelected = false;
+                                    questionProvider.selectedAnswer = '';
+                                    questionProvider.questions = [];
+                                    questionProvider.selectedAnswers = [];
+                                    questionProvider.myCorrectAnswers = 0;
+                                    questionProvider.myWrongAnswers = 0;
+                                    questionProvider.correctAnswer = '';
+
+                                    Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => HomeScreen(),
+                                        ),
+                                        (route) => false);
+                                  },
+                                  child: const Text(
+                                    "Yes",
+                                    style: TextStyle(
+                                      fontFamily: 'Poppins',
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(ctx).pop();
+                                  },
+                                  child: const Text(
+                                    "No",
+                                    style: TextStyle(
+                                      fontFamily: 'Poppins',
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        } else {
+                          showDialog(
+                            context: context,
+                            builder: (ctx) => AlertDialog(
+                              title: Text(
+                                "Alert",
+                                style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              content: Text(
+                                "Do you want to exit in exam?",
+                                style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () {
+                                    questionProvider.isAnswerSelected = false;
+                                    questionProvider.selectedAnswer = '';
+                                    questionProvider.questions = [];
+                                    questionProvider.selectedAnswers = [];
+                                    questionProvider.myCorrectAnswers = 0;
+                                    questionProvider.myWrongAnswers = 0;
+                                    questionProvider.correctAnswer = '';
+
+                                    Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => HomeScreen(),
+                                        ),
+                                        (route) => false);
+                                  },
+                                  child: const Text(
+                                    "Yes",
+                                    style: TextStyle(
+                                      fontFamily: 'Poppins',
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(ctx).pop();
+                                  },
+                                  child: const Text(
+                                    "No",
+                                    style: TextStyle(
+                                      fontFamily: 'Poppins',
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
+                      },
+                      child: SizedBox(
+                        height: 20,
+                        child: Image.asset(
+                          'assets/icons/exit.png',
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ],

@@ -249,6 +249,7 @@ class _QuizResultsPageState extends State<QuizResultsPage> {
                     questionProvider.selectedAnswers = [];
                     questionProvider.myCorrectAnswers = 0;
                     questionProvider.myWrongAnswers = 0;
+                    questionProvider.correctAnswer = '';
                   }
 
                   if (widget.score < 80.0) {

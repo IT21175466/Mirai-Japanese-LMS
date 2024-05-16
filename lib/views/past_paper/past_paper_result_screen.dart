@@ -249,6 +249,7 @@ class _PastPaperResultScreenState extends State<PastPaperResultScreen> {
                     questionProvider.selectedAnswers = [];
                     questionProvider.myCorrectAnswers = 0;
                     questionProvider.myWrongAnswers = 0;
+                    questionProvider.correctAnswer = '';
                   }
 
                   if (widget.score < 60.0) {

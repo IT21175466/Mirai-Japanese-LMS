@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:miraijapanese/constraints/app_colors.dart';
 import 'package:miraijapanese/providers/app_data/app_data_provider.dart';
 import 'package:miraijapanese/widgets/user_info_card.dart';
@@ -67,141 +68,64 @@ class _ProfileTabState extends State<ProfileTab> {
                       topRight: Radius.circular(30),
                     ),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          Container(
-                            height: 80,
-                            width: 80,
-                            margin: EdgeInsets.symmetric(
-                                horizontal: 15, vertical: 10),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(100),
-                              image: DecorationImage(
-                                image: AssetImage('assets/images/profile.jpg'),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
+                  child: AnimationLimiter(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: AnimationConfiguration.toStaggeredList(
+                        duration: const Duration(seconds: 1),
+                        childAnimationBuilder: (widget) => SlideAnimation(
+                          horizontalOffset: 100.0,
+                          child: FadeInAnimation(
+                            child: widget,
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                        ),
+                        children: [
+                          Row(
                             children: [
-                              Text(
-                                '${appDataProvider.firstName} ${appDataProvider.lastName}',
-                                style: TextStyle(
-                                  fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 16,
-                                  color: AppColors.textBlackColor,
+                              Container(
+                                height: 80,
+                                width: 80,
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: 15, vertical: 10),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(100),
+                                  image: DecorationImage(
+                                    image:
+                                        AssetImage('assets/images/profile.jpg'),
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
-                              Text(
-                                '${appDataProvider.phoneNum}',
-                                style: TextStyle(
-                                  fontFamily: 'Poppins',
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 13,
-                                  color: AppColors.textGrayColor,
-                                ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    '${appDataProvider.firstName} ${appDataProvider.lastName}',
+                                    style: TextStyle(
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 16,
+                                      color: AppColors.textBlackColor,
+                                    ),
+                                  ),
+                                  Text(
+                                    '${appDataProvider.phoneNum}',
+                                    style: TextStyle(
+                                      fontFamily: 'Poppins',
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 13,
+                                      color: AppColors.textGrayColor,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                        width: screenWidth,
-                        margin: EdgeInsets.symmetric(horizontal: 15),
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15),
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.25),
-                              blurRadius: 8,
-                              offset: Offset(0, 1),
-                            ),
-                          ],
-                        ),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                Container(
-                                  width: 60,
-                                  height: 60,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    color: AppColors.lowAccentColor,
-                                  ),
-                                  child: Center(
-                                    child: SizedBox(
-                                      height: 35,
-                                      child: Image.asset(
-                                        'assets/icons/progress.png',
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      'Progress',
-                                      style: TextStyle(
-                                        fontFamily: 'Poppins',
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 16,
-                                        color: AppColors.textBlackColor,
-                                      ),
-                                    ),
-                                    Text(
-                                      'Goal 100%',
-                                      style: TextStyle(
-                                        fontFamily: 'Poppins',
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 13,
-                                        color: AppColors.textGrayColor,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 15,
-                            ),
-                            LinearPercentIndicator(
-                              width: screenWidth - 50,
-                              animation: true,
-                              animationDuration: 1500,
-                              lineHeight: 10.0,
-                              percent: 0.8,
-                              // (appDataProvider.lessionsScore.length +
-                              //     appDataProvider
-                              //         .pastPapersScore.length), // Remove + 1
-                              progressColor: AppColors.borderColor,
-                              barRadius: const Radius.circular(16),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      Row(
-                        children: [
+                          SizedBox(
+                            height: 10,
+                          ),
                           Container(
-                            width: screenWidth / 2 - 30,
+                            width: screenWidth,
                             margin: EdgeInsets.symmetric(horizontal: 15),
                             padding: EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 10),
@@ -216,141 +140,235 @@ class _ProfileTabState extends State<ProfileTab> {
                                 ),
                               ],
                             ),
-                            child: Row(
+                            child: Column(
                               children: [
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                SizedBox(
-                                  height: 35,
-                                  child: Image.asset(
-                                    'assets/icons/quizScore.png',
-                                    color: AppColors.accentColor,
-                                  ),
-                                ),
-                                Spacer(),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                Row(
                                   children: [
-                                    Text(
-                                      appDataProvider.completedLessions.length
-                                          .toString(),
-                                      style: TextStyle(
-                                        fontFamily: 'Poppins',
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 36,
-                                        color: AppColors.accentColor,
+                                    Container(
+                                      width: 60,
+                                      height: 60,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: AppColors.lowAccentColor,
+                                      ),
+                                      child: Center(
+                                        child: SizedBox(
+                                          height: 35,
+                                          child: Image.asset(
+                                            'assets/icons/progress.png',
+                                          ),
+                                        ),
                                       ),
                                     ),
-                                    Text(
-                                      'Lessons\nCompleted',
-                                      style: TextStyle(
-                                        fontFamily: 'Poppins',
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 11,
-                                        color: AppColors.textGrayColor,
-                                      ),
-                                      textAlign: TextAlign.right,
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Progress',
+                                          style: TextStyle(
+                                            fontFamily: 'Poppins',
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 16,
+                                            color: AppColors.textBlackColor,
+                                          ),
+                                        ),
+                                        Text(
+                                          'Goal 100%',
+                                          style: TextStyle(
+                                            fontFamily: 'Poppins',
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 13,
+                                            color: AppColors.textGrayColor,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ],
+                                ),
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                LinearPercentIndicator(
+                                  width: screenWidth - 50,
+                                  animation: true,
+                                  animationDuration: 1500,
+                                  lineHeight: 10.0,
+                                  percent: 0.8,
+                                  // (appDataProvider.lessionsScore.length +
+                                  //     appDataProvider
+                                  //         .pastPapersScore.length), // Remove + 1
+                                  progressColor: AppColors.borderColor,
+                                  barRadius: const Radius.circular(16),
                                 ),
                               ],
                             ),
                           ),
-                          Container(
-                            width: screenWidth / 2 - 30,
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 10, vertical: 10),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.25),
-                                  blurRadius: 8,
-                                  offset: Offset(0, 1),
-                                ),
-                              ],
-                            ),
-                            child: Row(
-                              children: [
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                SizedBox(
-                                  height: 35,
-                                  child: Image.asset(
-                                    'assets/icons/paste.png',
-                                    color: AppColors.accentColor,
-                                  ),
-                                ),
-                                Spacer(),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Text(
-                                      appDataProvider.completedPastPapers.length
-                                          .toString(),
-                                      style: TextStyle(
-                                        fontFamily: 'Poppins',
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 36,
-                                        color: AppColors.accentColor,
-                                      ),
-                                    ),
-                                    Text(
-                                      'Past Papers\nCompleted',
-                                      style: TextStyle(
-                                        fontFamily: 'Poppins',
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 11,
-                                        color: AppColors.textGrayColor,
-                                      ),
-                                      textAlign: TextAlign.right,
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Row(
+                            children: [
+                              Container(
+                                width: screenWidth / 2 - 30,
+                                margin: EdgeInsets.symmetric(horizontal: 15),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 10),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.25),
+                                      blurRadius: 8,
+                                      offset: Offset(0, 1),
                                     ),
                                   ],
                                 ),
-                              ],
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    SizedBox(
+                                      height: 35,
+                                      child: Image.asset(
+                                        'assets/icons/quizScore.png',
+                                        color: AppColors.accentColor,
+                                      ),
+                                    ),
+                                    Spacer(),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          appDataProvider
+                                              .completedLessions.length
+                                              .toString(),
+                                          style: TextStyle(
+                                            fontFamily: 'Poppins',
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 36,
+                                            color: AppColors.accentColor,
+                                          ),
+                                        ),
+                                        Text(
+                                          'Lessons\nCompleted',
+                                          style: TextStyle(
+                                            fontFamily: 'Poppins',
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 11,
+                                            color: AppColors.textGrayColor,
+                                          ),
+                                          textAlign: TextAlign.right,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(
+                                width: screenWidth / 2 - 30,
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 10),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.25),
+                                      blurRadius: 8,
+                                      offset: Offset(0, 1),
+                                    ),
+                                  ],
+                                ),
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    SizedBox(
+                                      height: 35,
+                                      child: Image.asset(
+                                        'assets/icons/paste.png',
+                                        color: AppColors.accentColor,
+                                      ),
+                                    ),
+                                    Spacer(),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          appDataProvider
+                                              .completedPastPapers.length
+                                              .toString(),
+                                          style: TextStyle(
+                                            fontFamily: 'Poppins',
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 36,
+                                            color: AppColors.accentColor,
+                                          ),
+                                        ),
+                                        Text(
+                                          'Past Papers\nCompleted',
+                                          style: TextStyle(
+                                            fontFamily: 'Poppins',
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 11,
+                                            color: AppColors.textGrayColor,
+                                          ),
+                                          textAlign: TextAlign.right,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 15),
+                            child: Text(
+                              'Personal Details',
+                              style: TextStyle(
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 18,
+                                color: AppColors.textBlackColor,
+                              ),
                             ),
+                          ),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          UserInfoCard(
+                            phone: '${appDataProvider.phoneNum}',
+                            info: 'Phone Number',
+                            image: Image.asset('assets/icons/phoneNumber.png'),
+                          ),
+                          appDataProvider.email.toString().isEmpty
+                              ? SizedBox()
+                              : UserInfoCard(
+                                  phone: '${appDataProvider.email}',
+                                  info: 'Email',
+                                  image: Image.asset('assets/icons/email.png'),
+                                ),
+                          UserInfoCard(
+                            phone: '${appDataProvider.registedDate}',
+                            info: 'Registerd in',
+                            image: Image.asset('assets/icons/registerdIn.png'),
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 15),
-                        child: Text(
-                          'Personal Details',
-                          style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w500,
-                            fontSize: 18,
-                            color: AppColors.textBlackColor,
-                          ),
-                        ),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      UserInfoCard(
-                        phone: '${appDataProvider.phoneNum}',
-                        info: 'Phone Number',
-                        image: Image.asset('assets/icons/phoneNumber.png'),
-                      ),
-                      appDataProvider.email.toString().isEmpty
-                          ? SizedBox()
-                          : UserInfoCard(
-                              phone: '${appDataProvider.email}',
-                              info: 'Email',
-                              image: Image.asset('assets/icons/email.png'),
-                            ),
-                      UserInfoCard(
-                        phone: '${appDataProvider.registedDate}',
-                        info: 'Registerd in',
-                        image: Image.asset('assets/icons/registerdIn.png'),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
               ],

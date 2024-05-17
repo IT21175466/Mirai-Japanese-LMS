@@ -400,7 +400,7 @@ class _HomeTabState extends State<HomeTab> {
                           'See All',
                           style: TextStyle(
                             fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w400,
+                            fontWeight: FontWeight.w500,
                             fontSize: 13,
                             color: AppColors.accentColor,
                           ),
@@ -435,7 +435,7 @@ class _HomeTabState extends State<HomeTab> {
                                     margin: EdgeInsets.symmetric(
                                         vertical: 5, horizontal: 15),
                                     padding:
-                                        EdgeInsets.symmetric(horizontal: 10),
+                                        EdgeInsets.only(left: 5, right: 10),
                                     decoration: BoxDecoration(
                                       border: Border.all(
                                         width: 0.5,
@@ -446,8 +446,8 @@ class _HomeTabState extends State<HomeTab> {
                                     child: Row(
                                       children: [
                                         Container(
-                                          height: 51,
-                                          width: 51,
+                                          height: 60,
+                                          width: 60,
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(12),
@@ -476,8 +476,8 @@ class _HomeTabState extends State<HomeTab> {
                                                       .length]['LessonTitle'],
                                               style: TextStyle(
                                                 fontFamily: 'Poppins',
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 18,
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 17,
                                                 color: AppColors.textBlackColor,
                                               ),
                                             ),
@@ -534,7 +534,7 @@ class _HomeTabState extends State<HomeTab> {
                                     margin: EdgeInsets.symmetric(
                                         vertical: 5, horizontal: 15),
                                     padding:
-                                        EdgeInsets.symmetric(horizontal: 10),
+                                        EdgeInsets.only(left: 5, right: 10),
                                     decoration: BoxDecoration(
                                       border: Border.all(
                                         width: 0.5,
@@ -545,8 +545,8 @@ class _HomeTabState extends State<HomeTab> {
                                     child: Row(
                                       children: [
                                         Container(
-                                          height: 51,
-                                          width: 51,
+                                          height: 60,
+                                          width: 60,
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(12),
@@ -575,8 +575,8 @@ class _HomeTabState extends State<HomeTab> {
                                                       .length]['LessonTitle'],
                                               style: TextStyle(
                                                 fontFamily: 'Poppins',
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 18,
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 17,
                                                 color: AppColors.textBlackColor,
                                               ),
                                             ),

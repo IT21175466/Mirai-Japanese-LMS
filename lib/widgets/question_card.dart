@@ -26,7 +26,7 @@ class QuestionCard extends StatelessWidget {
           height: 70,
           width: screenWidth,
           margin: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-          padding: EdgeInsets.symmetric(horizontal: 10),
+          padding: EdgeInsets.only(left: 5, right: 10),
           decoration: BoxDecoration(
             border: Border.all(
               width: 0.5,
@@ -37,8 +37,8 @@ class QuestionCard extends StatelessWidget {
           child: Row(
             children: [
               Container(
-                height: 51,
-                width: 51,
+                height: 60,
+                width: 60,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
                   image: DecorationImage(
@@ -58,8 +58,8 @@ class QuestionCard extends StatelessWidget {
                     quizTitle,
                     style: TextStyle(
                       fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 17,
                       color: AppColors.textBlackColor,
                     ),
                   ),
@@ -99,7 +99,7 @@ class QuestionCard extends StatelessWidget {
                           child: Image.asset('assets/icons/done.png'),
                         )
                       : SizedBox(
-                          height: 20,
+                          height: 15,
                           child: Image.asset('assets/icons/back.png'),
                         ),
             ],

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:miraijapanese/constraints/app_colors.dart';
 import 'package:miraijapanese/providers/quiz/question_provider.dart';
 import 'package:miraijapanese/views/home/home_screen.dart';
@@ -253,89 +254,111 @@ class _PastPaperDoingScreenState extends State<PastPaperDoingScreen> {
           width: screenWidth,
           padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
           child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SingleQuestionPastPaper(
-                  questionNumber:
-                      questionProvider.questions[index].questionNumber,
-                  question: questionProvider.questions[index].question,
-                  answer1: questionProvider.questions[index].answer1,
-                  answer2: questionProvider.questions[index].answer2,
-                  answer3: questionProvider.questions[index].answer3,
-                  correctAnswer:
-                      questionProvider.questions[index].correctAnswer,
-                  questionImage:
-                      questionProvider.questions[index].questionImage,
-                  answer1Image: questionProvider.questions[index].answer1Image,
-                  answer2Image: questionProvider.questions[index].answer2Image,
-                  answer3Image: questionProvider.questions[index].answer3Image,
-                  questionVoice:
-                      questionProvider.questions[index].questionVoice,
-                  answer1Voice: questionProvider.questions[index].answer1Voice,
-                  answer2Voice: questionProvider.questions[index].answer2Voice,
-                  answer3Voice: questionProvider.questions[index].answer3Voice,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 15),
-                  child: Align(
-                    alignment: Alignment.bottomRight,
-                    child: questionProvider.questions.length == index + 1
-                        ? GestureDetector(
-                            onTap: () {
-                              if (questionProvider.isAnswerSelected == false) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text('Please Select a Answer!'),
-                                  ),
-                                );
-                              } else {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        ResultLoadingPastPaper(
-                                      corrects:
-                                          questionProvider.myCorrectAnswers,
-                                      wrongs: questionProvider.myWrongAnswers,
-                                      quesionAmount:
-                                          questionProvider.questions.length,
-                                    ),
-                                  ),
-                                );
-                              }
-                            },
-                            child: CustomButton(
-                              text: 'Finish',
-                              height: 50,
-                              width: screenWidth / 2,
-                            ),
-                          )
-                        : GestureDetector(
-                            onTap: () {
-                              if (questionProvider.isAnswerSelected == false) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text('Please Select a Answer!'),
-                                  ),
-                                );
-                              } else {
-                                setState(() {
-                                  index = index + 1;
-                                  questionProvider.isAnswerSelected = false;
-                                  questionProvider.selectedAnswer = '';
-                                });
-                              }
-                            },
-                            child: CustomButton(
-                              text: 'Next',
-                              height: 50,
-                              width: screenWidth / 2,
-                            ),
-                          ),
+            child: AnimationLimiter(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: AnimationConfiguration.toStaggeredList(
+                  duration: const Duration(milliseconds: 500),
+                  childAnimationBuilder: (widget) => SlideAnimation(
+                    horizontalOffset: 100.0,
+                    child: FadeInAnimation(
+                      child: widget,
+                    ),
                   ),
+                  children: [
+                    SingleQuestionPastPaper(
+                      questionNumber:
+                          questionProvider.questions[index].questionNumber,
+                      question: questionProvider.questions[index].question,
+                      answer1: questionProvider.questions[index].answer1,
+                      answer2: questionProvider.questions[index].answer2,
+                      answer3: questionProvider.questions[index].answer3,
+                      correctAnswer:
+                          questionProvider.questions[index].correctAnswer,
+                      questionImage:
+                          questionProvider.questions[index].questionImage,
+                      answer1Image:
+                          questionProvider.questions[index].answer1Image,
+                      answer2Image:
+                          questionProvider.questions[index].answer2Image,
+                      answer3Image:
+                          questionProvider.questions[index].answer3Image,
+                      questionVoice:
+                          questionProvider.questions[index].questionVoice,
+                      answer1Voice:
+                          questionProvider.questions[index].answer1Voice,
+                      answer2Voice:
+                          questionProvider.questions[index].answer2Voice,
+                      answer3Voice:
+                          questionProvider.questions[index].answer3Voice,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 15),
+                      child: Align(
+                        alignment: Alignment.bottomRight,
+                        child: questionProvider.questions.length == index + 1
+                            ? GestureDetector(
+                                onTap: () {
+                                  if (questionProvider.isAnswerSelected ==
+                                      false) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content:
+                                            Text('Please Select a Answer!'),
+                                      ),
+                                    );
+                                  } else {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            ResultLoadingPastPaper(
+                                          corrects:
+                                              questionProvider.myCorrectAnswers,
+                                          wrongs:
+                                              questionProvider.myWrongAnswers,
+                                          quesionAmount:
+                                              questionProvider.questions.length,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                },
+                                child: CustomButton(
+                                  text: 'Finish',
+                                  height: 50,
+                                  width: screenWidth / 2,
+                                ),
+                              )
+                            : GestureDetector(
+                                onTap: () {
+                                  if (questionProvider.isAnswerSelected ==
+                                      false) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content:
+                                            Text('Please Select a Answer!'),
+                                      ),
+                                    );
+                                  } else {
+                                    setState(() {
+                                      index = index + 1;
+                                      questionProvider.isAnswerSelected = false;
+                                      questionProvider.selectedAnswer = '';
+                                    });
+                                  }
+                                },
+                                child: CustomButton(
+                                  text: 'Next',
+                                  height: 50,
+                                  width: screenWidth / 2,
+                                ),
+                              ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
         ),

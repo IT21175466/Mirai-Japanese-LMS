@@ -439,7 +439,8 @@ class _HomeTabState extends State<HomeTab> {
                                     decoration: BoxDecoration(
                                       border: Border.all(
                                         width: 0.5,
-                                        color: AppColors.borderColor,
+                                        color: AppColors.borderColor
+                                            .withOpacity(0.6),
                                       ),
                                       borderRadius: BorderRadius.circular(15),
                                     ),
@@ -538,7 +539,8 @@ class _HomeTabState extends State<HomeTab> {
                                     decoration: BoxDecoration(
                                       border: Border.all(
                                         width: 0.5,
-                                        color: AppColors.borderColor,
+                                        color: AppColors.borderColor
+                                            .withOpacity(0.6),
                                       ),
                                       borderRadius: BorderRadius.circular(15),
                                     ),

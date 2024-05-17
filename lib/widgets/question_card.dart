@@ -112,7 +112,7 @@ class QuestionCard extends StatelessWidget {
                 margin: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
                 padding: EdgeInsets.symmetric(horizontal: 15),
                 decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 12, 7, 7).withOpacity(0.3),
+                  color: const Color.fromARGB(255, 12, 7, 7).withOpacity(0.1),
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: Row(
@@ -120,8 +120,11 @@ class QuestionCard extends StatelessWidget {
                     Spacer(),
                     isLocked
                         ? SizedBox(
-                            height: 25,
-                            child: Image.asset('assets/icons/lock.png'),
+                            height: 22,
+                            child: Image.asset(
+                              'assets/icons/lock.png',
+                              color: Colors.black,
+                            ),
                           )
                         : SizedBox(),
                   ],

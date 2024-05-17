@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:miraijapanese/constraints/app_colors.dart';
 import 'package:miraijapanese/providers/app_data/app_data_provider.dart';
 import 'package:miraijapanese/views/past_paper/past_paper_loading_screen.dart';
@@ -15,6 +16,7 @@ class PastPapersTab extends StatefulWidget {
 
 class _PastPapersTabState extends State<PastPapersTab> {
   TextEditingController searchController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -64,58 +66,77 @@ class _PastPapersTabState extends State<PastPapersTab> {
               } else if (!snapshot.hasData) {
                 return Text('No data available');
               } else {
-                return ListView.builder(
-                    itemCount: snapshot.data!.docs.length,
-                    itemBuilder: (context, index) {
-                      DocumentSnapshot lesson = snapshot.data!.docs[index];
-                      return GestureDetector(
-                        onTap: () {
-                          if (appDataProvider.completedPastPapers.length >=
-                              int.parse(lesson['LessonNo'])) {
-                            print('Quiz Did!');
-                          } else {
-                            if (appDataProvider.completedPastPapers.length ==
-                                    int.parse(lesson['LessonNo']) - 1 ||
-                                lesson['LessonNo'] == '1') {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => PastPaperLoadingScreen(
-                                    quizNo: lesson['LessonNo'],
-                                    lessonTitle: lesson['LessonTitle'],
-                                  ),
-                                ),
-                              );
-                            } else {
-                              print('Locked!');
-                            }
-                          }
-                        },
-                        child: QuestionCard(
-                          quizAmount: lesson['LessonNo'],
-                          image: NetworkImage(lesson['Image_Url']),
-                          quizTitle: lesson['LessonTitle'],
-                          isLocked:
-                              appDataProvider.completedPastPapers.length + 1 >=
-                                      int.parse(lesson['LessonNo'].toString())
-                                  ? false
-                                  : lesson['LessonNo'] == '1'
+                return AnimationLimiter(
+                  child: ListView.builder(
+                      itemCount: snapshot.data!.docs.length,
+                      itemBuilder: (context, index) {
+                        DocumentSnapshot lesson = snapshot.data!.docs[index];
+                        return AnimationConfiguration.staggeredList(
+                          duration: const Duration(milliseconds: 375),
+                          position: index,
+                          child: SlideAnimation(
+                            verticalOffset: 200.0,
+                            child: FadeInAnimation(
+                              child: GestureDetector(
+                                onTap: () {
+                                  if (appDataProvider
+                                          .completedPastPapers.length >=
+                                      int.parse(lesson['LessonNo'])) {
+                                    print('Quiz Did!');
+                                  } else {
+                                    if (appDataProvider
+                                                .completedPastPapers.length ==
+                                            int.parse(lesson['LessonNo']) - 1 ||
+                                        lesson['LessonNo'] == '1') {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              PastPaperLoadingScreen(
+                                            quizNo: lesson['LessonNo'],
+                                            lessonTitle: lesson['LessonTitle'],
+                                          ),
+                                        ),
+                                      );
+                                    } else {
+                                      print('Locked!');
+                                    }
+                                  }
+                                },
+                                child: QuestionCard(
+                                  quizAmount: lesson['LessonNo'],
+                                  image: NetworkImage(lesson['Image_Url']),
+                                  quizTitle: lesson['LessonTitle'],
+                                  isLocked: appDataProvider
+                                                  .completedPastPapers.length +
+                                              1 >=
+                                          int.parse(
+                                              lesson['LessonNo'].toString())
                                       ? false
-                                      : true,
-                          isCompleted:
-                              appDataProvider.completedPastPapers.length >=
-                                      int.parse(lesson['LessonNo'].toString())
-                                  ? true
-                                  : false,
-                          score: appDataProvider.completedPastPapers.length >=
-                                  int.parse(lesson['LessonNo'].toString())
-                              ? double.parse(
-                                  appDataProvider.completedPastPapers[
-                                      int.parse(lesson['LessonNo']) - 1])
-                              : 0.0,
-                        ),
-                      );
-                    });
+                                      : lesson['LessonNo'] == '1'
+                                          ? false
+                                          : true,
+                                  isCompleted: appDataProvider
+                                              .completedPastPapers.length >=
+                                          int.parse(
+                                              lesson['LessonNo'].toString())
+                                      ? true
+                                      : false,
+                                  score: appDataProvider
+                                              .completedPastPapers.length >=
+                                          int.parse(
+                                              lesson['LessonNo'].toString())
+                                      ? double.parse(appDataProvider
+                                              .completedPastPapers[
+                                          int.parse(lesson['LessonNo']) - 1])
+                                      : 0.0,
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      }),
+                );
               }
             },
           ),

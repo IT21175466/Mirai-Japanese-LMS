@@ -15,14 +15,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  //Tabs
-  final List<Widget> pages = [
-    HomeTab(),
-    QuizTab(),
-    PastPapersTab(),
-    ProfileTab(),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +23,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 BottomNavBarProvider bottomNavigationProvider, Widget? child) =>
             IndexedStack(
           index: bottomNavigationProvider.currentIndex,
-          children: pages,
+          children: [
+            HomeTab(),
+            QuizTab(),
+            PastPapersTab(),
+            ProfileTab(),
+          ],
         ),
       ),
       bottomNavigationBar: CustomBottomNavigationBar(),

@@ -283,17 +283,26 @@ class _QuizDoingScreenState extends State<QuizDoingScreen> {
                     child: questionProvider.questions.length == index + 1
                         ? GestureDetector(
                             onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ResultsLoadingScreen(
-                                    corrects: questionProvider.myCorrectAnswers,
-                                    wrongs: questionProvider.myWrongAnswers,
-                                    quesionAmount:
-                                        questionProvider.questions.length,
+                              if (questionProvider.isAnswerSelected == false) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text('Please Select a Answer!'),
                                   ),
-                                ),
-                              );
+                                );
+                              } else {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ResultsLoadingScreen(
+                                      corrects:
+                                          questionProvider.myCorrectAnswers,
+                                      wrongs: questionProvider.myWrongAnswers,
+                                      quesionAmount:
+                                          questionProvider.questions.length,
+                                    ),
+                                  ),
+                                );
+                              }
                             },
                             child: CustomButton(
                               text: 'Finish',
@@ -303,11 +312,19 @@ class _QuizDoingScreenState extends State<QuizDoingScreen> {
                           )
                         : GestureDetector(
                             onTap: () {
-                              setState(() {
-                                index = index + 1;
-                                questionProvider.isAnswerSelected = false;
-                                questionProvider.selectedAnswer = '';
-                              });
+                              if (questionProvider.isAnswerSelected == false) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text('Please Select a Answer!'),
+                                  ),
+                                );
+                              } else {
+                                setState(() {
+                                  index = index + 1;
+                                  questionProvider.isAnswerSelected = false;
+                                  questionProvider.selectedAnswer = '';
+                                });
+                              }
                             },
                             child: CustomButton(
                               text: 'Next',

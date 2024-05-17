@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:miraijapanese/constraints/app_colors.dart';
 import 'package:miraijapanese/providers/app_data/app_data_provider.dart';
@@ -24,6 +25,30 @@ class QuizResultsPage extends StatefulWidget {
 }
 
 class _QuizResultsPageState extends State<QuizResultsPage> {
+  final clipPlayer = AudioPlayer();
+
+  Future<void> playPassSound() async {
+    await clipPlayer.play(
+      AssetSource('audios/pass_exam.mp3'),
+    );
+  }
+
+  Future<void> playFailSound() async {
+    await clipPlayer.play(
+      AssetSource('audios/fail_exam.mp3'),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.score >= 80) {
+      playPassSound();
+    } else {
+      playFailSound();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;

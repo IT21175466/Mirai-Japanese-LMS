@@ -102,6 +102,20 @@ class _SingleQuestionScreenState extends State<SingleQuestionScreen> {
     ].join(':');
   }
 
+  final clipPlayer = AudioPlayer();
+
+  Future<void> playPassSound() async {
+    await clipPlayer.play(
+      AssetSource('audios/pass.mp3'),
+    );
+  }
+
+  Future<void> playFailSound() async {
+    await clipPlayer.play(
+      AssetSource('audios/fail.mp3'),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -109,6 +123,7 @@ class _SingleQuestionScreenState extends State<SingleQuestionScreen> {
     void showCorrectOrWrongAlertDialog(
         String selectedA, String correctA, bool isCorrectA) {
       if (selectedA == correctA) {
+        playPassSound();
         showDialog(
           context: context,
           builder: (context) {
@@ -200,6 +215,7 @@ class _SingleQuestionScreenState extends State<SingleQuestionScreen> {
           },
         );
       } else {
+        playFailSound();
         showDialog(
           context: context,
           builder: (context) {

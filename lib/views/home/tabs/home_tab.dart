@@ -456,10 +456,9 @@ class _HomeTabState extends State<HomeTab> {
                                         margin: EdgeInsets.symmetric(
                                             vertical: 5, horizontal: 15),
                                         padding: EdgeInsets.only(
-                                            left: 5,
-                                            right: 10,
-                                            top: 5,
-                                            bottom: 5),
+                                          left: 5,
+                                          right: 10,
+                                        ),
                                         decoration: BoxDecoration(
                                           border: Border.all(
                                             width: 0.5,
@@ -471,30 +470,35 @@ class _HomeTabState extends State<HomeTab> {
                                         ),
                                         child: Row(
                                           children: [
-                                            ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(12),
-                                              child: CachedNetworkImage(
-                                                imageUrl: snapshot.data!.docs[
-                                                    appDataProvider
-                                                        .completedLessions
-                                                        .length]['Image_Url'],
-                                                placeholder: (context, url) =>
-                                                    Center(
-                                                  child: SizedBox(
-                                                    height: 15,
-                                                    width: 15,
-                                                    child: Icon(
-                                                      Icons.image,
-                                                      color: Colors.grey,
+                                            SizedBox(
+                                              height: 60,
+                                              width: 60,
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                                child: CachedNetworkImage(
+                                                  fit: BoxFit.cover,
+                                                  imageUrl: snapshot.data!.docs[
+                                                      appDataProvider
+                                                          .completedLessions
+                                                          .length]['Image_Url'],
+                                                  placeholder: (context, url) =>
+                                                      Center(
+                                                    child: SizedBox(
+                                                      height: 15,
+                                                      width: 15,
+                                                      child: Icon(
+                                                        Icons.image,
+                                                        color: Colors.grey,
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                                errorWidget:
-                                                    (context, url, error) =>
-                                                        Icon(
-                                                  Icons.error,
-                                                  color: Colors.red,
+                                                  errorWidget:
+                                                      (context, url, error) =>
+                                                          Icon(
+                                                    Icons.error,
+                                                    color: Colors.red,
+                                                  ),
                                                 ),
                                               ),
                                             ),
@@ -575,10 +579,9 @@ class _HomeTabState extends State<HomeTab> {
                                         margin: EdgeInsets.symmetric(
                                             vertical: 5, horizontal: 15),
                                         padding: EdgeInsets.only(
-                                            left: 5,
-                                            right: 10,
-                                            top: 5,
-                                            bottom: 5),
+                                          left: 5,
+                                          right: 10,
+                                        ),
                                         decoration: BoxDecoration(
                                           border: Border.all(
                                             width: 0.5,
@@ -590,30 +593,35 @@ class _HomeTabState extends State<HomeTab> {
                                         ),
                                         child: Row(
                                           children: [
-                                            ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(12),
-                                              child: CachedNetworkImage(
-                                                imageUrl: snapshot.data!.docs[
-                                                    appDataProvider
-                                                        .completedLessions
-                                                        .length]['Image_Url'],
-                                                placeholder: (context, url) =>
-                                                    Center(
-                                                  child: SizedBox(
-                                                    height: 15,
-                                                    width: 15,
-                                                    child: Icon(
-                                                      Icons.image,
-                                                      color: Colors.grey,
+                                            SizedBox(
+                                              height: 60,
+                                              width: 60,
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                                child: CachedNetworkImage(
+                                                  fit: BoxFit.cover,
+                                                  imageUrl: snapshot.data!.docs[
+                                                      appDataProvider
+                                                          .completedLessions
+                                                          .length]['Image_Url'],
+                                                  placeholder: (context, url) =>
+                                                      Center(
+                                                    child: SizedBox(
+                                                      height: 15,
+                                                      width: 15,
+                                                      child: Icon(
+                                                        Icons.image,
+                                                        color: Colors.grey,
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                                errorWidget:
-                                                    (context, url, error) =>
-                                                        Icon(
-                                                  Icons.error,
-                                                  color: Colors.red,
+                                                  errorWidget:
+                                                      (context, url, error) =>
+                                                          Icon(
+                                                    Icons.error,
+                                                    color: Colors.red,
+                                                  ),
                                                 ),
                                               ),
                                             ),

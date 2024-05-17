@@ -1,4 +1,5 @@
 import 'package:audioplayers/audioplayers.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:miraijapanese/constraints/app_colors.dart';
 import 'package:miraijapanese/providers/quiz/question_provider.dart';
@@ -144,8 +145,25 @@ class _SingleQuizToPreviewState extends State<SingleQuizToPreview> {
                         questionProvider
                                 .questions[index].questionImage.isNotEmpty
                             ? Expanded(
-                                child: Image.network(questionProvider
-                                    .questions[index].questionImage),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(5),
+                                  child: CachedNetworkImage(
+                                    imageUrl: questionProvider
+                                        .questions[index].questionImage,
+                                    placeholder: (context, url) => SizedBox(
+                                      height: 20,
+                                      width: 20,
+                                      child: Icon(
+                                        Icons.image,
+                                        color: Colors.grey,
+                                      ),
+                                    ),
+                                    errorWidget: (context, url, error) => Icon(
+                                      Icons.error,
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                ),
                               )
                             : SizedBox(),
                         questionProvider

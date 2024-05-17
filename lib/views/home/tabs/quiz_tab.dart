@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:miraijapanese/constraints/app_colors.dart';
 import 'package:miraijapanese/providers/app_data/app_data_provider.dart';
 import 'package:miraijapanese/views/quiz/quiz_lo0ading_screen.dart';
@@ -68,50 +69,63 @@ class _QuizTabState extends State<QuizTab> {
                     itemCount: snapshot.data!.docs.length,
                     itemBuilder: (context, index) {
                       DocumentSnapshot lesson = snapshot.data!.docs[index];
-                      return GestureDetector(
-                        onTap: () {
-                          if (appDataProvider.completedLessions.length >=
-                              int.parse(lesson['LessonNo'])) {
-                            print('Quiz Did!');
-                          } else {
-                            if (appDataProvider.completedLessions.length ==
-                                    int.parse(lesson['LessonNo']) - 1 ||
-                                lesson['LessonNo'] == '1') {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => QuizLoadingScreen(
-                                    quizNo: lesson['LessonNo'],
-                                    lessonTitle: lesson['LessonTitle'],
-                                  ),
-                                ),
-                              );
-                            } else {
-                              print('Locked!');
-                            }
-                          }
-                        },
-                        child: QuestionCard(
-                          quizAmount: lesson['LessonNo'],
-                          image: NetworkImage(lesson['Image_Url']),
-                          quizTitle: lesson['LessonTitle'],
-                          isLocked:
-                              appDataProvider.completedLessions.length + 1 >=
-                                      int.parse(lesson['LessonNo'].toString())
-                                  ? false
-                                  : lesson['LessonNo'] == '1'
-                                      ? false
-                                      : true,
-                          isCompleted:
-                              appDataProvider.completedLessions.length >=
-                                      int.parse(lesson['LessonNo'].toString())
-                                  ? true
-                                  : false,
-                          score: appDataProvider.completedLessions.length >=
-                                  int.parse(lesson['LessonNo'].toString())
-                              ? double.parse(appDataProvider.completedLessions[
-                                  int.parse(lesson['LessonNo']) - 1])
-                              : 0.0,
+                      return AnimationConfiguration.staggeredList(
+                        duration: const Duration(milliseconds: 375),
+                        position: index,
+                        child: SlideAnimation(
+                          verticalOffset: 200.0,
+                          child: FadeInAnimation(
+                            child: GestureDetector(
+                              onTap: () {
+                                if (appDataProvider.completedLessions.length >=
+                                    int.parse(lesson['LessonNo'])) {
+                                  print('Quiz Did!');
+                                } else {
+                                  if (appDataProvider
+                                              .completedLessions.length ==
+                                          int.parse(lesson['LessonNo']) - 1 ||
+                                      lesson['LessonNo'] == '1') {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => QuizLoadingScreen(
+                                          quizNo: lesson['LessonNo'],
+                                          lessonTitle: lesson['LessonTitle'],
+                                        ),
+                                      ),
+                                    );
+                                  } else {
+                                    print('Locked!');
+                                  }
+                                }
+                              },
+                              child: QuestionCard(
+                                quizAmount: lesson['LessonNo'],
+                                image: NetworkImage(lesson['Image_Url']),
+                                quizTitle: lesson['LessonTitle'],
+                                isLocked: appDataProvider
+                                                .completedLessions.length +
+                                            1 >=
+                                        int.parse(lesson['LessonNo'].toString())
+                                    ? false
+                                    : lesson['LessonNo'] == '1'
+                                        ? false
+                                        : true,
+                                isCompleted: appDataProvider
+                                            .completedLessions.length >=
+                                        int.parse(lesson['LessonNo'].toString())
+                                    ? true
+                                    : false,
+                                score: appDataProvider
+                                            .completedLessions.length >=
+                                        int.parse(lesson['LessonNo'].toString())
+                                    ? double.parse(
+                                        appDataProvider.completedLessions[
+                                            int.parse(lesson['LessonNo']) - 1])
+                                    : 0.0,
+                              ),
+                            ),
+                          ),
                         ),
                       );
                     });

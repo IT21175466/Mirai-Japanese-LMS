@@ -105,7 +105,7 @@ class _PastPapersTabState extends State<PastPapersTab> {
                                 },
                                 child: QuestionCard(
                                   quizAmount: lesson['LessonNo'],
-                                  image: NetworkImage(lesson['Image_Url']),
+                                  image: lesson['Image_Url'],
                                   quizTitle: lesson['LessonTitle'],
                                   isLocked: appDataProvider
                                                   .completedPastPapers.length +

@@ -1,10 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:miraijapanese/constraints/app_colors.dart';
 
 class QuestionCard extends StatelessWidget {
   final String quizTitle;
   final String quizAmount;
-  final NetworkImage image;
+  final String image;
   final bool isLocked;
   final bool isCompleted;
   final double score;
@@ -26,7 +27,7 @@ class QuestionCard extends StatelessWidget {
           height: 70,
           width: screenWidth,
           margin: EdgeInsets.symmetric(vertical: 5, horizontal: 15),
-          padding: EdgeInsets.only(left: 5, right: 10),
+          padding: EdgeInsets.only(left: 5, right: 10, top: 5, bottom: 5),
           decoration: BoxDecoration(
             border: Border.all(
               width: 0.5,
@@ -36,14 +37,23 @@ class QuestionCard extends StatelessWidget {
           ),
           child: Row(
             children: [
-              Container(
-                height: 60,
-                width: 60,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  image: DecorationImage(
-                    image: image,
-                    fit: BoxFit.cover,
+              ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: CachedNetworkImage(
+                  imageUrl: image,
+                  placeholder: (context, url) => Center(
+                    child: SizedBox(
+                      height: 15,
+                      width: 15,
+                      child: Icon(
+                        Icons.image,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ),
+                  errorWidget: (context, url, error) => Icon(
+                    Icons.error,
+                    color: Colors.red,
                   ),
                 ),
               ),

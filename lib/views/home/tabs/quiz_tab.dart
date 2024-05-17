@@ -104,7 +104,7 @@ class _QuizTabState extends State<QuizTab> {
                                 },
                                 child: QuestionCard(
                                   quizAmount: lesson['LessonNo'],
-                                  image: NetworkImage(lesson['Image_Url']),
+                                  image: lesson['Image_Url'],
                                   quizTitle: lesson['LessonTitle'],
                                   isLocked:
                                       appDataProvider.completedLessions.length +

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -454,8 +455,11 @@ class _HomeTabState extends State<HomeTab> {
                                         width: screenWidth,
                                         margin: EdgeInsets.symmetric(
                                             vertical: 5, horizontal: 15),
-                                        padding:
-                                            EdgeInsets.only(left: 5, right: 10),
+                                        padding: EdgeInsets.only(
+                                            left: 5,
+                                            right: 10,
+                                            top: 5,
+                                            bottom: 5),
                                         decoration: BoxDecoration(
                                           border: Border.all(
                                             width: 0.5,
@@ -467,20 +471,30 @@ class _HomeTabState extends State<HomeTab> {
                                         ),
                                         child: Row(
                                           children: [
-                                            Container(
-                                              height: 60,
-                                              width: 60,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(12),
-                                                image: DecorationImage(
-                                                  image: NetworkImage(snapshot
-                                                              .data!.docs[
-                                                          appDataProvider
-                                                              .completedLessions
-                                                              .length]
-                                                      ['Image_Url']),
-                                                  fit: BoxFit.cover,
+                                            ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(12),
+                                              child: CachedNetworkImage(
+                                                imageUrl: snapshot.data!.docs[
+                                                    appDataProvider
+                                                        .completedLessions
+                                                        .length]['Image_Url'],
+                                                placeholder: (context, url) =>
+                                                    Center(
+                                                  child: SizedBox(
+                                                    height: 15,
+                                                    width: 15,
+                                                    child: Icon(
+                                                      Icons.image,
+                                                      color: Colors.grey,
+                                                    ),
+                                                  ),
+                                                ),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        Icon(
+                                                  Icons.error,
+                                                  color: Colors.red,
                                                 ),
                                               ),
                                             ),
@@ -560,8 +574,11 @@ class _HomeTabState extends State<HomeTab> {
                                         width: screenWidth,
                                         margin: EdgeInsets.symmetric(
                                             vertical: 5, horizontal: 15),
-                                        padding:
-                                            EdgeInsets.only(left: 5, right: 10),
+                                        padding: EdgeInsets.only(
+                                            left: 5,
+                                            right: 10,
+                                            top: 5,
+                                            bottom: 5),
                                         decoration: BoxDecoration(
                                           border: Border.all(
                                             width: 0.5,
@@ -573,19 +590,30 @@ class _HomeTabState extends State<HomeTab> {
                                         ),
                                         child: Row(
                                           children: [
-                                            Container(
-                                              height: 60,
-                                              width: 60,
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(12),
-                                                image: DecorationImage(
-                                                  image: NetworkImage(snapshot
-                                                          .data!.docs[
-                                                      appDataProvider
-                                                          .completedPastPapers
-                                                          .length]['Image_Url']),
-                                                  fit: BoxFit.cover,
+                                            ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(12),
+                                              child: CachedNetworkImage(
+                                                imageUrl: snapshot.data!.docs[
+                                                    appDataProvider
+                                                        .completedLessions
+                                                        .length]['Image_Url'],
+                                                placeholder: (context, url) =>
+                                                    Center(
+                                                  child: SizedBox(
+                                                    height: 15,
+                                                    width: 15,
+                                                    child: Icon(
+                                                      Icons.image,
+                                                      color: Colors.grey,
+                                                    ),
+                                                  ),
+                                                ),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        Icon(
+                                                  Icons.error,
+                                                  color: Colors.red,
                                                 ),
                                               ),
                                             ),

@@ -1,4 +1,5 @@
 import 'package:audioplayers/audioplayers.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:miraijapanese/constraints/app_colors.dart';
 
@@ -143,7 +144,24 @@ class _AnswerTileState extends State<AnswerTile> {
                       child: Container(
                         height: 68,
                         width: 68,
-                        child: Image.network(widget.answerImage),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(5),
+                          child: CachedNetworkImage(
+                            imageUrl: widget.answerImage,
+                            placeholder: (context, url) => SizedBox(
+                              height: 30,
+                              width: 30,
+                              child: Icon(
+                                Icons.image,
+                                color: Colors.grey,
+                              ),
+                            ),
+                            errorWidget: (context, url, error) => Icon(
+                              Icons.error,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ),
                       ),
                     )
                   : SizedBox(),

@@ -1,4 +1,5 @@
 import 'package:audioplayers/audioplayers.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:miraijapanese/constraints/app_colors.dart';
@@ -312,7 +313,24 @@ class _SingleQuestionScreenState extends State<SingleQuestionScreen> {
                 ),
                 widget.questionImage.isNotEmpty
                     ? Expanded(
-                        child: Image.network(widget.questionImage),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(5),
+                          child: CachedNetworkImage(
+                            imageUrl: widget.questionImage,
+                            placeholder: (context, url) => SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: Icon(
+                                Icons.image,
+                                color: Colors.grey,
+                              ),
+                            ),
+                            errorWidget: (context, url, error) => Icon(
+                              Icons.error,
+                              color: Colors.red,
+                            ),
+                          ),
+                        ),
                       )
                     : SizedBox(),
                 widget.questionVoice.isNotEmpty

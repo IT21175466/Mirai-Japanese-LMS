@@ -65,70 +65,77 @@ class _QuizTabState extends State<QuizTab> {
               } else if (!snapshot.hasData) {
                 return Text('No data available');
               } else {
-                return ListView.builder(
-                    itemCount: snapshot.data!.docs.length,
-                    itemBuilder: (context, index) {
-                      DocumentSnapshot lesson = snapshot.data!.docs[index];
-                      return AnimationConfiguration.staggeredList(
-                        duration: const Duration(milliseconds: 375),
-                        position: index,
-                        child: SlideAnimation(
-                          verticalOffset: 200.0,
-                          child: FadeInAnimation(
-                            child: GestureDetector(
-                              onTap: () {
-                                if (appDataProvider.completedLessions.length >=
-                                    int.parse(lesson['LessonNo'])) {
-                                  print('Quiz Did!');
-                                } else {
+                return AnimationLimiter(
+                  child: ListView.builder(
+                      itemCount: snapshot.data!.docs.length,
+                      itemBuilder: (context, index) {
+                        DocumentSnapshot lesson = snapshot.data!.docs[index];
+                        return AnimationConfiguration.staggeredList(
+                          duration: const Duration(milliseconds: 375),
+                          position: index,
+                          child: SlideAnimation(
+                            verticalOffset: 200.0,
+                            child: FadeInAnimation(
+                              child: GestureDetector(
+                                onTap: () {
                                   if (appDataProvider
-                                              .completedLessions.length ==
-                                          int.parse(lesson['LessonNo']) - 1 ||
-                                      lesson['LessonNo'] == '1') {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => QuizLoadingScreen(
-                                          quizNo: lesson['LessonNo'],
-                                          lessonTitle: lesson['LessonTitle'],
-                                        ),
-                                      ),
-                                    );
+                                          .completedLessions.length >=
+                                      int.parse(lesson['LessonNo'])) {
+                                    print('Quiz Did!');
                                   } else {
-                                    print('Locked!');
+                                    if (appDataProvider
+                                                .completedLessions.length ==
+                                            int.parse(lesson['LessonNo']) - 1 ||
+                                        lesson['LessonNo'] == '1') {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              QuizLoadingScreen(
+                                            quizNo: lesson['LessonNo'],
+                                            lessonTitle: lesson['LessonTitle'],
+                                          ),
+                                        ),
+                                      );
+                                    } else {
+                                      print('Locked!');
+                                    }
                                   }
-                                }
-                              },
-                              child: QuestionCard(
-                                quizAmount: lesson['LessonNo'],
-                                image: NetworkImage(lesson['Image_Url']),
-                                quizTitle: lesson['LessonTitle'],
-                                isLocked: appDataProvider
-                                                .completedLessions.length +
-                                            1 >=
-                                        int.parse(lesson['LessonNo'].toString())
-                                    ? false
-                                    : lesson['LessonNo'] == '1'
-                                        ? false
-                                        : true,
-                                isCompleted: appDataProvider
-                                            .completedLessions.length >=
-                                        int.parse(lesson['LessonNo'].toString())
-                                    ? true
-                                    : false,
-                                score: appDataProvider
-                                            .completedLessions.length >=
-                                        int.parse(lesson['LessonNo'].toString())
-                                    ? double.parse(
-                                        appDataProvider.completedLessions[
-                                            int.parse(lesson['LessonNo']) - 1])
-                                    : 0.0,
+                                },
+                                child: QuestionCard(
+                                  quizAmount: lesson['LessonNo'],
+                                  image: NetworkImage(lesson['Image_Url']),
+                                  quizTitle: lesson['LessonTitle'],
+                                  isLocked:
+                                      appDataProvider.completedLessions.length +
+                                                  1 >=
+                                              int.parse(
+                                                  lesson['LessonNo'].toString())
+                                          ? false
+                                          : lesson['LessonNo'] == '1'
+                                              ? false
+                                              : true,
+                                  isCompleted: appDataProvider
+                                              .completedLessions.length >=
+                                          int.parse(
+                                              lesson['LessonNo'].toString())
+                                      ? true
+                                      : false,
+                                  score: appDataProvider
+                                              .completedLessions.length >=
+                                          int.parse(
+                                              lesson['LessonNo'].toString())
+                                      ? double.parse(appDataProvider
+                                              .completedLessions[
+                                          int.parse(lesson['LessonNo']) - 1])
+                                      : 0.0,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      );
-                    });
+                        );
+                      }),
+                );
               }
             },
           ),

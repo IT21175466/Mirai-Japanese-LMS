@@ -90,8 +90,8 @@ class _ProfileTabState extends State<ProfileTab> {
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(100),
                                   image: DecorationImage(
-                                    image:
-                                        AssetImage('assets/images/profile.jpg'),
+                                    image: AssetImage(
+                                        'assets/images/profile.jpeg'),
                                     fit: BoxFit.cover,
                                   ),
                                 ),

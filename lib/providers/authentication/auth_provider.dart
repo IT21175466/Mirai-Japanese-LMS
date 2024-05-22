@@ -29,7 +29,7 @@ class AuthProvider extends ChangeNotifier {
     loading = true;
     notifyListeners();
     String Url =
-        'http://send.ozonedesk.com/api/v2/send.php?user_id=105530&api_key=24bvbv0vquc2yvg8g&sender_id=My Demo sms&to=${phone}&message=Your verification code is ${code}';
+        'http://send.ozonedesk.com/api/v2/send.php?user_id=105530&api_key=24bvbv0vquc2yvg8g&sender_id=MIRAIGLOBLE&to=${phone}&message=Your Mirai Globle verification code is ${code}';
 
     try {
       loading = true;

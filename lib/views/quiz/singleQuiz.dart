@@ -302,7 +302,7 @@ class _SingleQuestionScreenState extends State<SingleQuestionScreen> {
         children: [
           Container(
             width: screenWidth,
-            height: 180,
+            height:  widget.questionVoice.isNotEmpty? 350 :  180,
             padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
@@ -328,7 +328,10 @@ class _SingleQuestionScreenState extends State<SingleQuestionScreen> {
                   height: 10,
                 ),
                 widget.questionImage.isNotEmpty
-                    ? Expanded(
+                    ? Center(
+                      child: SizedBox(
+                        height: 170,
+                        width: screenWidth,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(5),
                           child: CachedNetworkImage(
@@ -347,7 +350,8 @@ class _SingleQuestionScreenState extends State<SingleQuestionScreen> {
                             ),
                           ),
                         ),
-                      )
+                      ),
+                    )
                     : SizedBox(),
                 widget.questionVoice.isNotEmpty
                     ? Expanded(

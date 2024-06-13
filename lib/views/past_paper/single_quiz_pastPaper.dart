@@ -378,7 +378,7 @@ class _SingleQuestionPastPaperState extends State<SingleQuestionPastPaper> {
         children: [
           Container(
             width: screenWidth,
-            height: 180,
+            height:  widget.questionVoice.isNotEmpty? 350 :  180,
             padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
@@ -404,26 +404,30 @@ class _SingleQuestionPastPaperState extends State<SingleQuestionPastPaper> {
                   height: 10,
                 ),
                 widget.questionImage.isNotEmpty
-                    ? Expanded(
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(5),
-                          child: CachedNetworkImage(
-                            imageUrl: widget.questionImage,
-                            placeholder: (context, url) => SizedBox(
-                              height: 20,
-                              width: 20,
-                              child: Icon(
-                                Icons.image,
-                                color: Colors.grey,
+                    ? Center(
+                      child: SizedBox(
+                                        height: 170,
+                                        width: screenWidth,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(5),
+                            child: CachedNetworkImage(
+                              imageUrl: widget.questionImage,
+                              placeholder: (context, url) => SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: Icon(
+                                  Icons.image,
+                                  color: Colors.grey,
+                                ),
                               ),
-                            ),
-                            errorWidget: (context, url, error) => Icon(
-                              Icons.error,
-                              color: Colors.red,
+                              errorWidget: (context, url, error) => Icon(
+                                Icons.error,
+                                color: Colors.red,
+                              ),
                             ),
                           ),
                         ),
-                      )
+                    )
                     : SizedBox(),
                 widget.questionVoice.isNotEmpty
                     ? Expanded(

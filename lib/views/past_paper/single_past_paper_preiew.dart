@@ -115,7 +115,7 @@ class _SinglePastPaperPreviewState extends State<SinglePastPaperPreview> {
                   ),
                   Container(
                     width: screenWidth,
-                    height: 180,
+                    height: questionProvider.questionVoice.isNotEmpty? 350 :  180,
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
@@ -142,27 +142,31 @@ class _SinglePastPaperPreviewState extends State<SinglePastPaperPreview> {
                         ),
                         questionProvider
                                 .questions[index].questionImage.isNotEmpty
-                            ? Expanded(
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(5),
-                                  child: CachedNetworkImage(
-                                    imageUrl: questionProvider
-                                        .questions[index].questionImage,
-                                    placeholder: (context, url) => SizedBox(
-                                      height: 20,
-                                      width: 20,
-                                      child: Icon(
-                                        Icons.image,
-                                        color: Colors.grey,
+                            ? Center(
+                              child: SizedBox(
+                                                        height: 170,
+                                                        width: screenWidth,
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(5),
+                                    child: CachedNetworkImage(
+                                      imageUrl: questionProvider
+                                          .questions[index].questionImage,
+                                      placeholder: (context, url) => SizedBox(
+                                        height: 20,
+                                        width: 20,
+                                        child: Icon(
+                                          Icons.image,
+                                          color: Colors.grey,
+                                        ),
                                       ),
-                                    ),
-                                    errorWidget: (context, url, error) => Icon(
-                                      Icons.error,
-                                      color: Colors.red,
+                                      errorWidget: (context, url, error) => Icon(
+                                        Icons.error,
+                                        color: Colors.red,
+                                      ),
                                     ),
                                   ),
                                 ),
-                              )
+                            )
                             : SizedBox(),
                         questionProvider
                                 .questions[index].questionVoice.isNotEmpty

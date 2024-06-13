@@ -117,7 +117,7 @@ class _SingleQuizToPreviewState extends State<SingleQuizToPreview> {
                   ),
                   Container(
                     width: screenWidth,
-                    height: 180,
+                    height: questionProvider.questionVoice.isNotEmpty? 350 :  180,
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
@@ -144,7 +144,10 @@ class _SingleQuizToPreviewState extends State<SingleQuizToPreview> {
                         ),
                         questionProvider
                                 .questions[index].questionImage.isNotEmpty
-                            ? Expanded(
+                            ? Center(
+                              child: SizedBox(
+                                                        height: 170,
+                                                        width: screenWidth,
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(5),
                                   child: CachedNetworkImage(
@@ -164,7 +167,8 @@ class _SingleQuizToPreviewState extends State<SingleQuizToPreview> {
                                     ),
                                   ),
                                 ),
-                              )
+                              ),
+                            )
                             : SizedBox(),
                         questionProvider
                                 .questions[index].questionVoice.isNotEmpty

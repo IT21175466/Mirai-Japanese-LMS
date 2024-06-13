@@ -64,7 +64,10 @@ class QuestionProvider extends ChangeNotifier {
           .collection("Questions")
           .get();
 
-      for (QueryDocumentSnapshot quizDoc in querySnapshot.docs) {
+      List<QueryDocumentSnapshot> sortedDocs = querySnapshot.docs
+        ..sort((a, b) => int.parse(a['QuestionNo']).compareTo(int.parse(b['QuestionNo'])));
+
+      for (QueryDocumentSnapshot quizDoc in sortedDocs) {
         //Map<String, dynamic> data = quizDoc.data() as Map<String, dynamic>;
 
         questionNumber = quizDoc['QuestionNo'];
@@ -133,7 +136,10 @@ class QuestionProvider extends ChangeNotifier {
           .collection("Questions")
           .get();
 
-      for (QueryDocumentSnapshot quizDoc in querySnapshot.docs) {
+      List<QueryDocumentSnapshot> sortedDocs = querySnapshot.docs
+        ..sort((a, b) => int.parse(a['QuestionNo']).compareTo(int.parse(b['QuestionNo'])));
+
+      for (QueryDocumentSnapshot quizDoc in sortedDocs) {
         //Map<String, dynamic> data = quizDoc.data() as Map<String, dynamic>;
 
         questionNumber = quizDoc['QuestionNo'];

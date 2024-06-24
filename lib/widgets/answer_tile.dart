@@ -132,7 +132,7 @@ class _AnswerTileState extends State<AnswerTile> {
                   style: TextStyle(
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w500,
-                    fontSize: 17,
+                    fontSize: 18,
                     color: widget.textColor,
                   ),
                 ),

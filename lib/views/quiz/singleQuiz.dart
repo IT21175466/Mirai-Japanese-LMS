@@ -326,7 +326,7 @@ class _SingleQuestionScreenState extends State<SingleQuestionScreen> {
                   style: TextStyle(
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w600,
-                    fontSize: 18,
+                    fontSize: 20,
                     color: AppColors.textBlackColor,
                   ),
                 ),

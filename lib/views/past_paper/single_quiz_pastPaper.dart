@@ -362,7 +362,7 @@ class _SingleQuestionPastPaperState extends State<SingleQuestionPastPaper> {
                   style: TextStyle(
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w600,
-                    fontSize: 18,
+                    fontSize: 20,
                     color: AppColors.textBlackColor,
                   ),
                 ),

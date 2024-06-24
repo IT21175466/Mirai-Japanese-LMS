@@ -269,26 +269,6 @@ class _SingleQuestionPastPaperState extends State<SingleQuestionPastPaper> {
                         : SizedBox(),
                   ],
                 ),
-                actions: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(top: 10),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Text(
-                        'OK',
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                          color: AppColors.accentColor,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
-                ],
               );
             });
           },
@@ -349,26 +329,6 @@ class _SingleQuestionPastPaperState extends State<SingleQuestionPastPaper> {
                     ],
                   ),
                 ),
-                actions: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(top: 10),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Text(
-                        'OK',
-                        style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                          color: AppColors.accentColor,
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ),
-                ],
               );
             });
           },
@@ -401,7 +361,7 @@ class _SingleQuestionPastPaperState extends State<SingleQuestionPastPaper> {
                   '${widget.questionNumber}. ${widget.question}',
                   style: TextStyle(
                     fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w400,
+                    fontWeight: FontWeight.w600,
                     fontSize: 18,
                     color: AppColors.textBlackColor,
                   ),

@@ -203,6 +203,9 @@ class _SingleQuestionPastPaperState extends State<SingleQuestionPastPaper> {
         showDialog(
           context: context,
           builder: (context) {
+            Future.delayed(Duration(seconds: 2), () {
+              Navigator.of(context).pop();
+            });
             return StatefulBuilder(builder: (context, setState) {
               return AlertDialog(
                 contentPadding: EdgeInsets.zero,
@@ -295,6 +298,9 @@ class _SingleQuestionPastPaperState extends State<SingleQuestionPastPaper> {
         showDialog(
           context: context,
           builder: (context) {
+            Future.delayed(Duration(seconds: 2), () {
+              Navigator.of(context).pop();
+            });
             return StatefulBuilder(builder: (context, setState) {
               return AlertDialog(
                 contentPadding: EdgeInsets.zero,
@@ -378,7 +384,7 @@ class _SingleQuestionPastPaperState extends State<SingleQuestionPastPaper> {
         children: [
           Container(
             width: screenWidth,
-            height:  widget.questionVoice.isNotEmpty? 350 :  180,
+            height: widget.questionVoice.isNotEmpty ? 350 : 180,
             padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
@@ -396,7 +402,7 @@ class _SingleQuestionPastPaperState extends State<SingleQuestionPastPaper> {
                   style: TextStyle(
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w400,
-                    fontSize: 16,
+                    fontSize: 18,
                     color: AppColors.textBlackColor,
                   ),
                 ),
@@ -405,9 +411,9 @@ class _SingleQuestionPastPaperState extends State<SingleQuestionPastPaper> {
                 ),
                 widget.questionImage.isNotEmpty
                     ? Center(
-                      child: SizedBox(
-                                        height: 170,
-                                        width: screenWidth,
+                        child: SizedBox(
+                          height: 170,
+                          width: screenWidth,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(5),
                             child: CachedNetworkImage(
@@ -427,7 +433,7 @@ class _SingleQuestionPastPaperState extends State<SingleQuestionPastPaper> {
                             ),
                           ),
                         ),
-                    )
+                      )
                     : SizedBox(),
                 widget.questionVoice.isNotEmpty
                     ? Expanded(
